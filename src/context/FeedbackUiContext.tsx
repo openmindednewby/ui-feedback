@@ -7,21 +7,35 @@ import React, { createContext, useContext, useMemo } from 'react';
  */
 export interface FeedbackThemeColors {
   background: string;
+  surface: string;
   surfaceElevated: string;
   text: string;
   textSecondary: string;
   border: string;
 }
 
-/** A colour scale where the `500` step is the one the feedback components use. */
+/** A colour scale. The `500` step is guaranteed; other steps (50–900) are addressable. */
 export interface FeedbackColorScale {
   '500': string;
+  [step: string]: string;
+}
+
+/** `primary` is guaranteed; apps typically also provide `secondary`/`accent` (addressable). */
+export interface FeedbackThemePalette {
+  primary: FeedbackColorScale;
+  [name: string]: FeedbackColorScale;
+}
+
+/** `error` is guaranteed; apps typically also provide `success`/`warning`/`info` (addressable). */
+export interface FeedbackThemeSemantic {
+  error: FeedbackColorScale;
+  [name: string]: FeedbackColorScale;
 }
 
 export interface FeedbackTheme {
   colors: FeedbackThemeColors;
-  palette: { primary: FeedbackColorScale };
-  semantic: { error: FeedbackColorScale };
+  palette: FeedbackThemePalette;
+  semantic: FeedbackThemeSemantic;
 }
 
 /** Translate function — mirrors the apps' `FM(key, p1?, p2?, p3?)` helper. */
@@ -45,13 +59,23 @@ const DEFAULT_FEEDBACK_VALUE: FeedbackUiValue = {
   theme: {
     colors: {
       background: '#ffffff',
+      surface: '#f7f7f7',
       surfaceElevated: '#ffffff',
       text: '#111111',
       textSecondary: '#666666',
       border: '#dddddd',
     },
-    palette: { primary: { '500': '#2563eb' } },
-    semantic: { error: { '500': '#dc2626' } },
+    palette: {
+      primary: { '100': '#dbeafe', '500': '#2563eb', '700': '#1d4ed8' },
+      secondary: { '500': '#64748b' },
+      accent: { '500': '#f59e0b' },
+    },
+    semantic: {
+      error: { '500': '#dc2626' },
+      success: { '500': '#16a34a' },
+      warning: { '500': '#d97706' },
+      info: { '500': '#2563eb' },
+    },
   },
   t: (key) => key,
 };

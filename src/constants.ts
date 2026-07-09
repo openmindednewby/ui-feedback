@@ -17,4 +17,5 @@ export const FEEDBACK_TEST_IDS = {
   confirmDialog: 'confirm-dialog',
   confirmButton: 'confirm-button',
   cancelConfirmButton: 'cancel-confirm-button',
+  notificationToast: 'notification-toast',
 } as const;

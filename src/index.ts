@@ -6,11 +6,32 @@ export {
 export type {
   FeedbackTheme,
   FeedbackThemeColors,
+  FeedbackThemePalette,
+  FeedbackThemeSemantic,
   FeedbackColorScale,
   FeedbackTranslate,
   FeedbackNavigate,
   FeedbackUiValue,
   FeedbackUiProviderProps,
+} from './context/FeedbackUiContext';
+
+// Neutral aliases — ui-feedback is the shared UI context for the whole kit.
+// Sibling kit packages (ui-forms, ui-tables, …) and apps can use these names
+// instead of the feedback-specific ones; they reference the same context.
+export {
+  FeedbackUiProvider as UiProvider,
+  useFeedbackUi as useUi,
+} from './context/FeedbackUiContext';
+export type {
+  FeedbackTheme as UiTheme,
+  FeedbackThemeColors as UiThemeColors,
+  FeedbackThemePalette as UiThemePalette,
+  FeedbackThemeSemantic as UiThemeSemantic,
+  FeedbackColorScale as UiColorScale,
+  FeedbackTranslate as UiTranslate,
+  FeedbackNavigate as UiNavigate,
+  FeedbackUiValue as UiValue,
+  FeedbackUiProviderProps as UiProviderProps,
 } from './context/FeedbackUiContext';
 
 // Shared constants
@@ -31,3 +52,6 @@ export type { PageSkeletonProps } from './PageSkeleton/PageSkeleton';
 
 export { ConfirmDialog } from './ConfirmDialog/ConfirmDialog';
 export type { ConfirmDialogProps } from './ConfirmDialog/ConfirmDialog';
+
+export { ToastHost } from './ToastHost/ToastHost';
+export type { ToastHostProps, ToastInput, ToastType } from './ToastHost/ToastHost';

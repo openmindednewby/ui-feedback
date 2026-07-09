@@ -7,6 +7,7 @@ import { FeedbackUiProvider, useFeedbackUi, type FeedbackTheme } from './Feedbac
 const theme: FeedbackTheme = {
   colors: {
     background: '#fff',
+    surface: '#f7f7f7',
     surfaceElevated: '#f5f5f5',
     text: '#111',
     textSecondary: '#666',

@@ -5,6 +5,9 @@ module.exports = {
   roots: ['<rootDir>/src'],
   testMatch: ['**/*.test.ts', '**/*.test.tsx'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  moduleNameMapper: {
+    '^react-native$': 'react-native-web',
+  },
   collectCoverageFrom: [
     'src/context/**/*.ts',
     'src/context/**/*.tsx',

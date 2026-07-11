@@ -71,4 +71,22 @@ describe('ToastHost', () => {
     act(() => bus.emit({ text: 'Hi' }));
     expect(screen.getByTestId('my-toast')).toBeTruthy();
   });
+
+  it('announces a success/info toast as a polite status live region', () => {
+    const bus = makeBus();
+    renderWithUi(<ToastHost subscribe={bus.subscribe} />);
+    act(() => bus.emit({ text: 'Saved', type: 'success' }));
+    const toast = screen.getByTestId('notification-toast');
+    expect(toast.getAttribute('role')).toBe('status');
+    expect(toast.getAttribute('aria-live')).toBe('polite');
+  });
+
+  it('announces an error toast as an assertive alert live region', () => {
+    const bus = makeBus();
+    renderWithUi(<ToastHost subscribe={bus.subscribe} />);
+    act(() => bus.emit({ text: 'Boom', type: 'error' }));
+    const toast = screen.getByTestId('notification-toast');
+    expect(toast.getAttribute('role')).toBe('alert');
+    expect(toast.getAttribute('aria-live')).toBe('assertive');
+  });
 });

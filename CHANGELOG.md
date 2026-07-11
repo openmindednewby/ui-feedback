@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0
+
+- **Accessibility (WCAG 2.1 AA) — `ToastHost` announcements.** Each toast is now a live region so
+  a screen reader announces it (WCAG 4.1.3): success/info toasts render as `role="status"` with
+  `aria-live="polite"`, error toasts escalate to `role="alert"` with `aria-live="assertive"`
+  (`accessibilityLiveRegion` set for native parity). Rendering, timing and testIDs are unchanged —
+  additive + backward-compatible.
+
 ## 1.3.0
 
 - Add `ToastHost` — the shared, tokenized transient-toast overlay promoted from the

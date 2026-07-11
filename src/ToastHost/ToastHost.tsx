@@ -135,8 +135,15 @@ const ToastItem = ({ message, onDone, colors, durationMs, fadeMs, testID }: Toas
     return () => clearTimeout(hideTimer);
   }, [handleDone, opacity, translateY, durationMs, fadeMs]);
 
+  // An error toast is a `role="alert"` (assertive insert); success/info are `status` — both
+  // sit inside the host's live region so a screen reader announces the message. On native the
+  // per-item live region escalates errors to `assertive`.
+  const isError = message.type === 'error';
+
   return (
     <Animated.View
+      accessibilityLiveRegion={isError ? 'assertive' : 'polite'}
+      role={isError ? 'alert' : 'status'}
       style={[styles.toast, { backgroundColor, transform: [{ translateY }], opacity }]}
       testID={testID}
     >

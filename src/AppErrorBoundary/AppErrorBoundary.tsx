@@ -20,7 +20,8 @@ import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 import { ErrorBoundaryFallback } from './ErrorBoundaryFallback';
 import { ErrorBoundaryRecovering } from './ErrorBoundaryRecovering';
-import { DEFAULT_ERROR_BOUNDARY_LABELS, type ErrorBoundaryLabels } from './labels';
+import { type ErrorBoundaryLabels } from './labels';
+import { resolveLabels, resolveRetryable, resolveShowDetails } from './resolve';
 import { FEEDBACK_TEST_IDS } from '../constants';
 
 /** What the `fallback` render-prop receives. */
@@ -43,10 +44,48 @@ export interface AppErrorBoundaryProps {
    * of the error screen. Return `false`/omit to fall through to the fallback.
    */
   recover?: (error: Error) => boolean;
-  /** Render the error message in the fallback (dev-only stack). Default `false`. */
-  showDetails?: boolean;
+  /**
+   * Render the error message in the fallback (dev-only stack). Default `false`.
+   *
+   * A predicate is asked per caught error, so an app can suppress the block for
+   * error classes where the stack is noise rather than signal (the three chunk-aware
+   * apps hide it for a stale-chunk failure: the message names a hashed filename the
+   * user can do nothing with). A plain boolean behaves exactly as it always has.
+   */
+  showDetails?: boolean | ((error: Error) => boolean);
   /** Pre-localized wording. Anything omitted falls back to the English defaults. */
   labels?: Partial<ErrorBoundaryLabels>;
+  /**
+   * Per-error wording, merged OVER `labels`. Lets a caller say something specific
+   * about a specific failure ("Update available" for a stale chunk) without the kit
+   * knowing why — it never sees the classification, only the resulting strings.
+   */
+  labelsFor?: (error: Error) => Partial<ErrorBoundaryLabels>;
+  /**
+   * Whether retrying could plausibly help. When this returns `false` the retry
+   * action is NOT rendered at all — offering a button that re-renders straight back
+   * into the same failure is worse than offering nothing. Default: every error is
+   * retryable, which is the behaviour before this prop existed.
+   */
+  retryable?: (error: Error) => boolean;
+  /**
+   * Called from `componentDidMount` ONLY when the mount was clean (nothing caught).
+   * The chunk-aware apps use it to release their one-shot reload guard: a clean mount
+   * proves the current chunks loaded, so a FUTURE deploy is allowed to auto-recover
+   * again. Deliberately NOT called on an errored mount — that would re-arm the guard
+   * during the very failure it is meant to bound, and reintroduce the reload loop.
+   */
+  onMount?: () => void;
+  /**
+   * Give the primary (filled) emphasis — and the first position — to **Reload**
+   * instead of **Try Again**. Default `false`, which preserves the emphasis every
+   * existing caller renders today.
+   *
+   * Apps with a stale-chunk failure mode set this: when the running bundle references
+   * a chunk that no longer exists, reloading is the action that actually works and
+   * re-rendering is the one that cannot.
+   */
+  reloadIsPrimary?: boolean;
   /** Prefix for every testID the boundary renders. Default `error-boundary`. */
   testIDPrefix?: string;
   /** Full escape hatch — replaces the built-in fallback entirely. */
@@ -77,6 +116,14 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
     return { hasError: true, error };
   }
 
+  public componentDidMount(): void {
+    // Only a CLEAN mount. On an errored mount React still runs componentDidMount
+    // (after the fallback renders) with `hasError` already true — firing there would
+    // defeat any one-shot guard the caller is releasing here.
+    const isCleanMount = !this.state.hasError;
+    if (isCleanMount && typeof this.props.onMount === 'function') this.props.onMount();
+  }
+
   public componentDidCatch(error: Error, info: ErrorInfo): void {
     // Report FIRST — every copy reported unconditionally, recovery or not.
     if (typeof this.props.onError === 'function') this.props.onError(error, info);
@@ -90,10 +137,10 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
   };
 
   public render(): ReactNode {
-    const { children, fallback, labels, showDetails = false, onReload } = this.props;
+    const { children, fallback, labels, labelsFor, showDetails, onReload } = this.props;
     const { hasError, error, recovering } = this.state;
     const testIDPrefix = this.props.testIDPrefix ?? FEEDBACK_TEST_IDS.errorBoundary;
-    const resolvedLabels: ErrorBoundaryLabels = { ...DEFAULT_ERROR_BOUNDARY_LABELS, ...labels };
+    const resolvedLabels: ErrorBoundaryLabels = resolveLabels(labels, labelsFor, error);
 
     if (!hasError) return children;
 
@@ -108,7 +155,9 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
       <ErrorBoundaryFallback
         error={error}
         labels={resolvedLabels}
-        showDetails={showDetails}
+        reloadIsPrimary={this.props.reloadIsPrimary === true}
+        showDetails={resolveShowDetails(showDetails, error)}
+        showRetry={resolveRetryable(this.props.retryable, error)}
         testIDPrefix={testIDPrefix}
         onReload={onReload}
         onRetry={this.handleRetry}

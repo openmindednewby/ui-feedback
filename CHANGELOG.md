@@ -1,5 +1,54 @@
 # Changelog
 
+## 1.7.0
+
+Closes the API gap that kept `kefi-web`, `erevna-web` and `katalogos-web` on their
+local `ErrorBoundary` copies. Those three vary the boundary **by error class** — a
+stale-chunk failure after a deploy needs different wording, no retry button, and no
+stack dump — which 1.6.0's static `labels` / boolean `showDetails` could not express.
+Every addition is opt-in; the pre-1.7.0 test suite passes unmodified.
+
+**The kit still does not know what a "chunk" is.** Apps inject the classification;
+the boundary only learns *whether retry is meaningful* and *what to say*.
+
+- **Add `retryable?: (error) => boolean`.** When it returns `false` the retry action is
+  not rendered at all. Offering a button that re-renders straight back into the same
+  missing chunk is worse than offering nothing. Default: every error is retryable
+  (1.6.0 behaviour).
+- **Add `labelsFor?: (error) => Partial<ErrorBoundaryLabels>`,** merged OVER the static
+  `labels`. Lets an app say "Update available" for a stale chunk without the kit knowing
+  why — it sees only the resulting strings.
+- **Widen `showDetails` to `boolean | ((error) => boolean)`.** A predicate can suppress
+  the dev-only block per error class (a hashed filename is noise, not signal). **A plain
+  boolean behaves exactly as before.**
+- **Add `onMount?: () => void`,** called from `componentDidMount` ONLY when the mount was
+  clean. The three apps release their one-shot reload guard here: a clean mount proves the
+  current chunks loaded, so a FUTURE deploy may auto-recover again. Deliberately not called
+  on an errored mount — that would re-arm the guard during the very failure it bounds.
+- **Add `reloadIsPrimary?: boolean`** (default `false`). Gives Reload the filled emphasis
+  and the first position instead of Try Again.
+
+  **Why a flag rather than an unconditional swap:** `agora-web` and `zygos-web` both pass
+  `onReload`, so simply inverting the priority would have silently restyled and reordered
+  their error screens too. They have no chunk-recovery path, so retry is still the right
+  primary there. The default preserves their rendering exactly; the three chunk-aware apps
+  opt in.
+
+**Notably, `DEFAULT_ERROR_BOUNDARY_LABELS` gains no `updateTitle`/`updateMessage`.** Those
+are domain vocabulary — "an update is available" is a fact about the app's deploy model, not
+about error boundaries. `labelsFor` supplies them as ordinary `title`/`message` overrides,
+which keeps the kit's label bag domain-free.
+
+### Fixed
+
+- **`AppErrorBoundary.test.tsx` had never actually run.** `jest.setup.ts` imports
+  `@testing-library/jest-dom`, which registers matchers at runtime, but `tsconfig.test.json`
+  listed no `types`, so ts-jest failed every `toBeInTheDocument()` with TS2339 and aborted the
+  whole suite at compile time. It was the only suite using those matchers, so `npm test`
+  reported a red SUITE while the other five stayed green and the true test count read 34.
+  Adding `"types": ["jest", "node", "@testing-library/jest-dom"]` brings its 14 assertions
+  online for the first time — unmodified, and passing against the 1.7.0 source.
+
 ## 1.6.0
 
 Two fleet-wide duplicates extracted (W1.2 + W1.3). Both are purely additive — every

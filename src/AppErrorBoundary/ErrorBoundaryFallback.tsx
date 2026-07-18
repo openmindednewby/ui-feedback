@@ -96,6 +96,10 @@ export interface ErrorBoundaryFallbackProps {
   testIDPrefix: string;
   error: Error | null;
   showDetails: boolean;
+  /** When false the retry action is omitted entirely (retrying cannot help this error). */
+  showRetry: boolean;
+  /** Give Reload the filled emphasis and the first position instead of Try Again. */
+  reloadIsPrimary: boolean;
   onRetry: () => void;
   onReload?: () => void;
 }
@@ -109,6 +113,8 @@ export const ErrorBoundaryFallback = ({
   testIDPrefix,
   error,
   showDetails,
+  showRetry,
+  reloadIsPrimary,
   onRetry,
   onReload,
 }: ErrorBoundaryFallbackProps): React.ReactElement => {
@@ -116,6 +122,44 @@ export const ErrorBoundaryFallback = ({
   const warningColor = (theme.semantic.warning ?? theme.semantic.error)['500'];
   const primaryColor = theme.palette.primary['500'];
   const hasDetails = showDetails && error !== null;
+
+  // Exactly one action carries the filled emphasis. Which one is the caller's call
+  // (`reloadIsPrimary`), because only the caller knows whether re-rendering can work.
+  const primaryFill = { backgroundColor: primaryColor };
+  const primaryInk = { color: theme.colors.surfaceElevated };
+  const secondaryFill = { backgroundColor: theme.colors.surface };
+  const secondaryInk = { color: theme.colors.text };
+
+  const retryButton = showRetry ? (
+    <TouchableOpacity
+      accessibilityHint={labels.tryAgainHint}
+      accessibilityLabel={labels.tryAgain}
+      accessibilityRole="button"
+      style={[styles.button, reloadIsPrimary ? secondaryFill : primaryFill]}
+      testID={`${testIDPrefix}-retry-button`}
+      onPress={onRetry}
+    >
+      <Text style={[styles.buttonText, reloadIsPrimary ? secondaryInk : primaryInk]}>
+        {labels.tryAgain}
+      </Text>
+    </TouchableOpacity>
+  ) : null;
+
+  const reloadButton =
+    typeof onReload === 'function' ? (
+      <TouchableOpacity
+        accessibilityHint={labels.reloadHint}
+        accessibilityLabel={labels.reload}
+        accessibilityRole="button"
+        style={[styles.button, reloadIsPrimary ? primaryFill : secondaryFill]}
+        testID={`${testIDPrefix}-reload-button`}
+        onPress={onReload}
+      >
+        <Text style={[styles.buttonText, reloadIsPrimary ? primaryInk : secondaryInk]}>
+          {labels.reload}
+        </Text>
+      </TouchableOpacity>
+    ) : null;
 
   return (
     <View
@@ -139,29 +183,8 @@ export const ErrorBoundaryFallback = ({
           </View>
         ) : null}
 
-        <TouchableOpacity
-          accessibilityHint={labels.tryAgainHint}
-          accessibilityLabel={labels.tryAgain}
-          accessibilityRole="button"
-          style={[styles.button, { backgroundColor: primaryColor }]}
-          testID={`${testIDPrefix}-retry-button`}
-          onPress={onRetry}
-        >
-          <Text style={[styles.buttonText, { color: theme.colors.surfaceElevated }]}>{labels.tryAgain}</Text>
-        </TouchableOpacity>
-
-        {typeof onReload === 'function' ? (
-          <TouchableOpacity
-            accessibilityHint={labels.reloadHint}
-            accessibilityLabel={labels.reload}
-            accessibilityRole="button"
-            style={[styles.button, { backgroundColor: theme.colors.surface }]}
-            testID={`${testIDPrefix}-reload-button`}
-            onPress={onReload}
-          >
-            <Text style={[styles.buttonText, { color: theme.colors.text }]}>{labels.reload}</Text>
-          </TouchableOpacity>
-        ) : null}
+        {reloadIsPrimary ? reloadButton : retryButton}
+        {reloadIsPrimary ? retryButton : reloadButton}
       </View>
     </View>
   );

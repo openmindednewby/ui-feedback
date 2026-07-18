@@ -2,7 +2,16 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noUncheckedIndexedAccess": false,
-    "rootDir": "."
+    "rootDir": ".",
+    /**
+     * `jest.setup.ts` imports `@testing-library/jest-dom`, which registers matchers at
+     * RUNTIME — but ts-jest typechecks each suite, and without the matcher types listed
+     * here every `toBeInTheDocument()` is a TS2339 that fails the whole suite at compile
+     * time. That silently blackholed AppErrorBoundary.test.tsx (the only suite using
+     * these matchers) from the day it was written: `npm test` reported it as a failing
+     * SUITE, so its assertions were never counted and never ran.
+     */
+    "types": ["jest", "node", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*"]
 }

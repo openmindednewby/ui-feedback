@@ -19,4 +19,5 @@ export const FEEDBACK_TEST_IDS = {
   cancelConfirmButton: 'cancel-confirm-button',
   notificationToast: 'notification-toast',
   warmingOverlay: 'warming-overlay',
+  errorBoundary: 'error-boundary',
 } as const;

@@ -67,3 +67,15 @@ export {
   WARMING_QUIET_PERIOD_MS,
 } from './Warming/warmingStore';
 export type { WarmingInfo, WarmingSnapshot } from './Warming/warmingStore';
+
+// Framework-agnostic toast emit bus (W1.2). Pairs with <ToastHost>: a bus's
+// `subscribe` IS the host's `subscribe` port. No React — safe to call from a
+// mutation callback with no provider in scope.
+export { createToastBus } from './toastBus/createToastBus';
+export type { ToastBus, ToastPush } from './toastBus/createToastBus';
+
+// Shared top-level error boundary (W1.3). Themes through UiProvider via <ErrorState>.
+export { AppErrorBoundary } from './AppErrorBoundary/AppErrorBoundary';
+export type { AppErrorBoundaryProps, ErrorFallbackState } from './AppErrorBoundary/AppErrorBoundary';
+export { DEFAULT_ERROR_BOUNDARY_LABELS } from './AppErrorBoundary/labels';
+export type { ErrorBoundaryLabels } from './AppErrorBoundary/labels';

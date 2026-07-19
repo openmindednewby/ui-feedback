@@ -50,6 +50,11 @@ export type { LoadingFallbackProps } from './LoadingFallback/LoadingFallback';
 export { PageSkeleton } from './PageSkeleton/PageSkeleton';
 export type { PageSkeletonProps } from './PageSkeleton/PageSkeleton';
 
+// Loading / error / loaded, resolved once over ErrorState + PageSkeleton. Error beats
+// loading — see the component docblock; the ordering is pinned by a test.
+export { AsyncSurface } from './AsyncSurface/AsyncSurface';
+export type { AsyncSurfaceProps } from './AsyncSurface/AsyncSurface';
+
 export { ConfirmDialog } from './ConfirmDialog/ConfirmDialog';
 export type { ConfirmDialogProps } from './ConfirmDialog/ConfirmDialog';
 

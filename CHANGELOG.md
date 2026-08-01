@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.10.0
+## 1.11.0
 
 Adopts `@dloizides/ui-motion` for `PageSkeleton`: the loader now shows a moving
 **shimmer** (a highlight band sweeping across each block) instead of an opacity pulse,

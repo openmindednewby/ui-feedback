@@ -3,19 +3,34 @@
  *
  * Improves perceived performance (Speed Index) by showing immediate visual
  * feedback while page content loads.
+ *
+ * Each placeholder block is a `@dloizides/ui-motion` <Skeleton> — a rounded block
+ * with a highlight band that sweeps across it (translateX shimmer). This is the ONE
+ * shimmer implementation in the kit: PageSkeleton owns only the page LAYOUT (how many
+ * bars/blocks, their sizes and spacing), not the animation. Under reduced-motion the
+ * <Skeleton> suppresses the sweep and renders a static block on its own.
  */
 import React from 'react';
 
-import { Animated, Easing, Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import { Skeleton } from '@dloizides/ui-motion';
 
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { FEEDBACK_TEST_IDS } from '../constants';
 
-const ANIMATION_DURATION_MS = 1200;
 const SKELETON_BORDER_RADIUS = 4;
-const SKELETON_OPACITY_START = 0.3;
-const SKELETON_OPACITY_END = 0.7;
+const CARD_BORDER_RADIUS = 8;
 const DEFAULT_ROWS = 5;
+
+const HEADER_HEIGHT = 32;
+const HEADER_WIDTH = '60%';
+const AVATAR_SIZE = 48;
+const AVATAR_BORDER_RADIUS = 24;
+const TEXT_LINE_HEIGHT = 16;
+const TEXT_LINE_FULL_WIDTH = '100%';
+const TEXT_LINE_SHORT_WIDTH = '70%';
+const CARD_HEIGHT = 120;
 
 const styles = StyleSheet.create({
   container: {
@@ -23,19 +38,13 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   header: {
-    height: 32,
-    borderRadius: SKELETON_BORDER_RADIUS,
     marginBottom: 24,
-    width: '60%',
   },
   row: {
     flexDirection: 'row',
     marginBottom: 16,
   },
   avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
     marginRight: 12,
   },
   textContainer: {
@@ -43,19 +52,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textLine: {
-    height: 16,
-    borderRadius: SKELETON_BORDER_RADIUS,
     marginBottom: 8,
   },
-  textLineShort: {
-    width: '70%',
-  },
-  textLineFull: {
-    width: '100%',
-  },
   card: {
-    height: 120,
-    borderRadius: 8,
     marginBottom: 16,
   },
 });
@@ -77,48 +76,44 @@ export const PageSkeleton: React.FC<PageSkeletonProps> = ({
   const { theme, t } = useFeedbackUi();
   const colors = theme.colors;
 
-  const animatedValue = React.useRef(new Animated.Value(0)).current;
-
-  React.useEffect(() => {
-    const animation = Animated.loop(
-      Animated.sequence([
-        Animated.timing(animatedValue, {
-          toValue: 1,
-          duration: ANIMATION_DURATION_MS,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: Platform.OS !== 'web',
-        }),
-        Animated.timing(animatedValue, {
-          toValue: 0,
-          duration: ANIMATION_DURATION_MS,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: Platform.OS !== 'web',
-        }),
-      ]),
-    );
-    animation.start();
-    return () => animation.stop();
-  }, [animatedValue]);
-
-  const opacity = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [SKELETON_OPACITY_START, SKELETON_OPACITY_END],
-  });
-
   const skeletonColor = String(colors.border);
 
   const renderListRow = (index: number): React.ReactElement => (
     <View key={index} style={styles.row}>
-      <Animated.View style={[styles.avatar, { backgroundColor: skeletonColor, opacity }]} />
+      <Skeleton
+        backgroundColor={skeletonColor}
+        borderRadius={AVATAR_BORDER_RADIUS}
+        height={AVATAR_SIZE}
+        style={styles.avatar}
+        width={AVATAR_SIZE}
+      />
       <View style={styles.textContainer}>
-        <Animated.View style={[styles.textLine, styles.textLineFull, { backgroundColor: skeletonColor, opacity }]} />
-        <Animated.View style={[styles.textLine, styles.textLineShort, { backgroundColor: skeletonColor, opacity }]} />
+        <Skeleton
+          backgroundColor={skeletonColor}
+          borderRadius={SKELETON_BORDER_RADIUS}
+          height={TEXT_LINE_HEIGHT}
+          style={styles.textLine}
+          width={TEXT_LINE_FULL_WIDTH}
+        />
+        <Skeleton
+          backgroundColor={skeletonColor}
+          borderRadius={SKELETON_BORDER_RADIUS}
+          height={TEXT_LINE_HEIGHT}
+          style={styles.textLine}
+          width={TEXT_LINE_SHORT_WIDTH}
+        />
       </View>
     </View>
   );
 
   const renderCard = (index: number): React.ReactElement => (
-    <Animated.View key={index} style={[styles.card, { backgroundColor: skeletonColor, opacity }]} />
+    <Skeleton
+      key={index}
+      backgroundColor={skeletonColor}
+      borderRadius={CARD_BORDER_RADIUS}
+      height={CARD_HEIGHT}
+      style={styles.card}
+    />
   );
 
   const rowElements = Array.from({ length: rows }, (_, i) => (variant === 'cards' ? renderCard(i) : renderListRow(i)));
@@ -131,7 +126,15 @@ export const PageSkeleton: React.FC<PageSkeletonProps> = ({
       style={[styles.container, { backgroundColor: colors.background }]}
       testID={FEEDBACK_TEST_IDS.pageSkeleton}
     >
-      {showHeader ? <Animated.View style={[styles.header, { backgroundColor: skeletonColor, opacity }]} /> : null}
+      {showHeader ? (
+        <Skeleton
+          backgroundColor={skeletonColor}
+          borderRadius={SKELETON_BORDER_RADIUS}
+          height={HEADER_HEIGHT}
+          style={styles.header}
+          width={HEADER_WIDTH}
+        />
+      ) : null}
       {rowElements}
     </View>
   );

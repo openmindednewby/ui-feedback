@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.10.0
+
+Adopts `@dloizides/ui-motion` for `PageSkeleton`: the loader now shows a moving
+**shimmer** (a highlight band sweeping across each block) instead of an opacity pulse,
+so loading states read as modern/ant-design-like. There is now ONE shimmer
+implementation in the kit — the ui-motion `<Skeleton>` primitive — and `PageSkeleton`
+owns only the page LAYOUT (how many bars/blocks, their sizes and spacing).
+
+- **Add runtime dependency `@dloizides/ui-motion` (`^1.0.1`).**
+- **`PageSkeleton` internals reimplemented on ui-motion `<Skeleton>`.** Each placeholder
+  block (header bar, list-row avatar + text lines, card) is now a `<Skeleton>` with the
+  same `width`/`height`/`borderRadius`/base colour it had before. The bespoke
+  `Animated.loop` opacity pulse (and its `Animated`/`Easing`/`Platform` imports) is gone.
+- **Reduced-motion is now handled by `<Skeleton>`** (via `@dloizides/rn-web-hooks`
+  `useReducedMotion`): the sweep is suppressed and a static block is shown.
+- **Public API unchanged.** `PageSkeletonProps` (`rows`, `showHeader`, `variant`), the
+  rendered layout, and the `page-skeleton` testID are identical to 1.9.0. Only the
+  internal animated primitive was swapped.
+- `ToastHost` (fade+slide) is intentionally left as-is — it remains the reference
+  enter/exit pattern.
+
 ## 1.7.0
 
 Closes the API gap that kept `kefi-web`, `erevna-web` and `katalogos-web` on their

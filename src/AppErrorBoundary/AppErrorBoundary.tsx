@@ -70,10 +70,15 @@ export interface AppErrorBoundaryProps {
   retryable?: (error: Error) => boolean;
   /**
    * Called from `componentDidMount` ONLY when the mount was clean (nothing caught).
-   * The chunk-aware apps use it to release their one-shot reload guard: a clean mount
-   * proves the current chunks loaded, so a FUTURE deploy is allowed to auto-recover
-   * again. Deliberately NOT called on an errored mount — that would re-arm the guard
-   * during the very failure it is meant to bound, and reintroduce the reload loop.
+   * Deliberately NOT called on an errored mount.
+   *
+   * ⚠️ A CLEAN MOUNT DOES NOT PROVE THE PAGE LOADED. On a lazy route the boundary commits
+   * clean because a Suspense fallback rendered, and the dynamic import rejects AFTER this
+   * fires. A guard released here is therefore released mid-failure, which is how the
+   * chunk-reload loop went unbounded. Anything wired here must be safe to call during the
+   * failure it bounds — `clearChunkRecoveryFlag` from `@dloizides/utils` >= 1.8.0 is
+   * (it refuses to release a record still inside its cooldown); a plain "reset my
+   * counter" callback is not.
    */
   onMount?: () => void;
   /**

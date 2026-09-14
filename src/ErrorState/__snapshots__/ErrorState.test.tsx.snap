@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorState baseline (no new props) keeps the message + retry element tree 1`] = `
+[
+  "<div data-testid=error-state>",
+  "  <div > Boom",
+  "  <button role=button data-testid=error-state-retry aria-label=common.retry>",
+  "    <div > common.retry",
+]
+`;
+
+exports[`ErrorState baseline (no new props) keeps the message-only element tree 1`] = `
+[
+  "<div data-testid=error-state>",
+  "  <div > Boom",
+]
+`;

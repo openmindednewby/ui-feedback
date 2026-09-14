@@ -39,7 +39,7 @@ export { MODAL_OVERLAY_COLOR, DISABLED_OPACITY, FEEDBACK_TEST_IDS } from './cons
 
 // Components
 export { ErrorState } from './ErrorState/ErrorState';
-export type { ErrorStateProps } from './ErrorState/ErrorState';
+export type { ErrorStateAction, ErrorStateProps } from './ErrorState/ErrorState';
 
 export { EmptyListState } from './EmptyListState/EmptyListState';
 export type { EmptyListStateProps } from './EmptyListState/EmptyListState';

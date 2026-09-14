@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.12.0
+
+Opt-in additions to `ErrorState` for full-screen error surfaces (an import-error or
+load-error screen that needs a heading, an icon and a way out other than retry). Every
+prop is optional: a caller passing none of them renders the same element tree as 1.11.0,
+pinned by `ErrorState.test.tsx` baseline snapshots recorded before the change.
+
+- **Add `title?: string`** — rendered above the message with `accessibilityRole="header"`
+  (`role="heading"` on web), testID `${testID}-title`. When a title is present the message
+  uses `theme.colors.textSecondary` instead of the error colour.
+- **Add `icon?: React.ReactNode`** — rendered inside a circular well tinted with
+  `theme.semantic.error['500']` at low opacity; the well is `aria-hidden`, testID `${testID}-icon`.
+- **Add `secondaryAction?: ErrorStateAction`** (`{ label, hint, onPress, testID }`) — an
+  outline button (`theme.colors.border`) laid out in a row beside retry.
+- **Export type `ErrorStateAction`.** No new colour literals; no new dependencies.
+
 ## 1.11.0
 
 Adopts `@dloizides/ui-motion` for `PageSkeleton`: the loader now shows a moving

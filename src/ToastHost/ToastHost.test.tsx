@@ -1,5 +1,7 @@
 import { render, screen, act } from '@testing-library/react';
 
+import { Z_INDEX } from '@dloizides/design-tokens';
+
 import {
   FeedbackUiProvider as UiProvider,
   type FeedbackTheme as UiTheme,
@@ -88,5 +90,16 @@ describe('ToastHost', () => {
     const toast = screen.getByTestId('notification-toast');
     expect(toast.getAttribute('role')).toBe('alert');
     expect(toast.getAttribute('aria-live')).toBe('assertive');
+  });
+
+  it('stacks the toast layer above an open popover menu and a modal', () => {
+    const bus = makeBus();
+    renderWithUi(<ToastHost subscribe={bus.subscribe} />);
+    act(() => bus.emit({ text: 'Saved', type: 'success' }));
+    const layer = screen.getByTestId('notification-toast').parentElement as HTMLElement;
+    const zIndex = Number(window.getComputedStyle(layer).zIndex);
+    expect(zIndex).toBe(Z_INDEX.toast);
+    expect(zIndex).toBeGreaterThan(Z_INDEX.popover);
+    expect(zIndex).toBeGreaterThan(Z_INDEX.modal);
   });
 });

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.13.0
+
+Overlay stacking now comes from the shared `@dloizides/design-tokens` `Z_INDEX` scale
+(added as a dependency, `^1.13.0`) instead of local literals.
+
+- **`ToastHost` layer: 9999 -> `Z_INDEX.toast` (10100).** A toast now paints above an open
+  portalled menu (`Z_INDEX.popover`, 10000) and above an RN-web `Modal` (9999). At 9999 an open
+  dropdown covered the toast. Pinned by a `ToastHost.test.tsx` case that reads the computed
+  `z-index` of the toast layer.
+- **`WarmingOverlay`: literal 100000 -> `Z_INDEX.blocking`.** Same value, so nothing changes visually.
+
 ## 1.12.0
 
 Opt-in additions to `ErrorState` for full-screen error surfaces (an import-error or

@@ -14,6 +14,8 @@ import React, { useSyncExternalStore } from 'react';
 
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
+import { Z_INDEX } from '@dloizides/design-tokens';
+
 import { useFeedbackUi, type FeedbackTheme } from '../context/FeedbackUiContext';
 import { FEEDBACK_TEST_IDS } from '../constants';
 import { getWarmingSnapshot, subscribeWarming } from './warmingStore';
@@ -22,7 +24,6 @@ import { getWarmingSnapshot, subscribeWarming } from './warmingStore';
 // Constants
 // ---------------------------------------------------------------------------
 
-const OVERLAY_Z_INDEX = 100000;
 const CARD_GAP = 12;
 const TITLE_FONT_SIZE = 20;
 const SUBTITLE_FONT_SIZE = 15;
@@ -43,8 +44,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: OVERLAY_Z_INDEX,
-    elevation: OVERLAY_Z_INDEX,
+    zIndex: Z_INDEX.blocking,
+    elevation: Z_INDEX.blocking,
     padding: CARD_PADDING,
   },
   card: {

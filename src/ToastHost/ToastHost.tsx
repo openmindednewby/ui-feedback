@@ -12,6 +12,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Animated, Platform, StyleSheet, Text, View } from 'react-native';
 
+import { Z_INDEX } from '@dloizides/design-tokens';
+
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { FEEDBACK_TEST_IDS } from '../constants';
 
@@ -23,7 +25,6 @@ const DEFAULT_MAX_LENGTH = 500;
 const TOAST_TOP_WEB = 10;
 const TOAST_TOP_MOBILE = 40;
 const TOAST_HORIZONTAL_MARGIN = 10;
-const TOAST_Z_INDEX = 9999;
 const TOAST_INITIAL_TRANSLATE_Y = -6;
 const TOAST_MAX_WIDTH = 600;
 const TOAST_PADDING_HORIZONTAL = 16;
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     left: TOAST_HORIZONTAL_MARGIN,
     right: TOAST_HORIZONTAL_MARGIN,
     alignItems: 'center',
-    zIndex: TOAST_Z_INDEX,
+    zIndex: Z_INDEX.toast,
     pointerEvents: 'box-none',
   },
   toast: {

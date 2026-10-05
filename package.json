@@ -78,7 +78,13 @@
     },
     "peerDependencies": {
         "react": ">=18.0.0",
+        "react-dom": ">=18.0.0",
         "react-native": ">=0.74.0"
+    },
+    "peerDependenciesMeta": {
+        "react-dom": {
+            "optional": true
+        }
     },
     "devDependencies": {
         "@testing-library/dom": "^10.4.0",

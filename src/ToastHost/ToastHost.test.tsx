@@ -92,6 +92,24 @@ describe('ToastHost', () => {
     expect(toast.getAttribute('aria-live')).toBe('assertive');
   });
 
+  it('portals the toast layer to document.body as a fixed layer so no ancestor stacking context traps it', () => {
+    const bus = makeBus();
+    render(
+      <UiProvider theme={theme} t={t}>
+        <div data-testid="trapping-ancestor" style={{ position: 'relative', zIndex: 0 }}>
+          <ToastHost subscribe={bus.subscribe} />
+        </div>
+      </UiProvider>,
+    );
+    act(() => bus.emit({ text: 'Saved', type: 'success' }));
+    const layer = screen.getByTestId('notification-toast').parentElement as HTMLElement;
+    expect(layer.parentElement).toBe(document.body);
+    expect(screen.getByTestId('trapping-ancestor').contains(layer)).toBe(false);
+    const style = window.getComputedStyle(layer);
+    expect(style.position).toBe('fixed');
+    expect(Number(style.zIndex)).toBe(Z_INDEX.toast);
+  });
+
   it('stacks the toast layer above an open popover menu and a modal', () => {
     const bus = makeBus();
     renderWithUi(<ToastHost subscribe={bus.subscribe} />);

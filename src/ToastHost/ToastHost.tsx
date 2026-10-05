@@ -7,15 +7,28 @@
  * toast emitter). The app wires the two together via the `subscribe` port: a
  * function that registers a push callback and returns an unsubscribe. Colours
  * come from the UiProvider theme (`useUi`) — nothing hardcoded.
+ *
+ * STACKING (web): react-native-web gives every `View` `position: relative; z-index: 0`, so an
+ * in-tree absolute layer's `Z_INDEX.toast` is trapped inside its ancestors' stacking contexts and a
+ * body-level RN `Modal` / ConfirmDialog (`Z_INDEX.modal`) paints over it. On web the layer is
+ * therefore portalled to `document.body` with `position: fixed`, the same mechanism as
+ * `@dloizides/ui-forms` `menuPortal` and `@dloizides/ui-tables` `SizeDropdown`. Native stays in-tree.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { Animated, Platform, StyleSheet, Text, View } from 'react-native';
+import { Animated, Platform, StyleSheet, Text, View, type ViewStyle } from 'react-native';
+import { createPortal } from 'react-dom';
 
 import { Z_INDEX } from '@dloizides/design-tokens';
 
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { FEEDBACK_TEST_IDS } from '../constants';
+
+const IS_WEB = Platform.OS === 'web';
+
+// RN's ViewStyle union omits 'fixed', but react-native-web honours it at runtime.
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- web-only position value
+const WEB_FIXED_LAYER: ViewStyle = { position: 'fixed' as unknown as ViewStyle['position'] };
 
 // --- Defaults (ported from the twins) ---------------------------------------
 const DEFAULT_DURATION_MS = 3000;
@@ -210,8 +223,9 @@ export const ToastHost = ({
 
   if (messages.length === 0) return null;
 
-  return (
-    <View style={styles.container}>
+  const canPortal = IS_WEB && typeof document !== 'undefined';
+  const layer = (
+    <View style={[styles.container, canPortal ? WEB_FIXED_LAYER : null]}>
       {messages.map((m) => (
         <ToastItem
           key={m.id}
@@ -225,6 +239,8 @@ export const ToastHost = ({
       ))}
     </View>
   );
+
+  return canPortal ? createPortal(layer, document.body) : layer;
 };
 
 export default ToastHost;

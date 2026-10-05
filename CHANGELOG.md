@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.14.0
+
+- **`ToastHost` portals to `document.body` on web (`position: fixed`, `Z_INDEX.toast`).** In-tree,
+  the layer sat inside RN-web Views that each carry `position: relative; z-index: 0`, so its 10100
+  was trapped and an open `ConfirmDialog` / RN `Modal` (9999, body-level) painted over the toast
+  (measured on ui.dloizides.com/feedback: `elementFromPoint` at the toast centre returned the
+  dialog). Same mechanism as `ui-forms` `menuPortal` and `ui-tables` `SizeDropdown`. Native is
+  unchanged (in-tree). `react-dom` is now an optional peer dependency.
+
 ## 1.13.0
 
 Overlay stacking now comes from the shared `@dloizides/design-tokens` `Z_INDEX` scale

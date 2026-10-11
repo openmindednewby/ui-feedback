@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.15.0
+
+- **New `ProgressBar`** (promoted from aml-v2 `JobProgressBar`, RUPEP-5 "Upload a RuPEP file from the
+  Jobs tab"): determinate fill clamped to 0-100 (`clampPercent`, also exported) with an optional
+  right-aligned caption, or an indeterminate scanning bar. `role="progressbar"` with
+  `aria-valuemin/max/now/text` (`aria-valuenow` omitted and `aria-busy` set when indeterminate).
+  Colours default to the UiProvider theme (`palette.primary.500`, `colors.border`,
+  `colors.textSecondary`) and accept overrides. Default testID `progress-bar`, fill `<testID>-fill`.
+
 ## 1.14.0
 
 - **`ToastHost` portals to `document.body` on web (`position: fixed`, `Z_INDEX.toast`).** In-tree,

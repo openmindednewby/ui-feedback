@@ -84,3 +84,7 @@ export { AppErrorBoundary } from './AppErrorBoundary/AppErrorBoundary';
 export type { AppErrorBoundaryProps, ErrorFallbackState } from './AppErrorBoundary/AppErrorBoundary';
 export { DEFAULT_ERROR_BOUNDARY_LABELS } from './AppErrorBoundary/labels';
 export type { ErrorBoundaryLabels } from './AppErrorBoundary/labels';
+
+export { ProgressBar } from './ProgressBar/ProgressBar';
+export type { ProgressBarProps } from './ProgressBar/ProgressBar';
+export { clampPercent } from './ProgressBar/clampPercent';

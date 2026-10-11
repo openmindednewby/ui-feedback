@@ -20,4 +20,5 @@ export const FEEDBACK_TEST_IDS = {
   notificationToast: 'notification-toast',
   warmingOverlay: 'warming-overlay',
   errorBoundary: 'error-boundary',
+  progressBar: 'progress-bar',
 } as const;

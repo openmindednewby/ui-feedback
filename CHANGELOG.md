@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.15.1
+
+- **ErrorState retry and secondary buttons now have a 44px minimum height** (`MIN_TOUCH_TARGET`),
+  content centred. Padding alone rendered them 34px tall, below the mobile-first hit-box standard
+  (JOBS-LIVE-1 "Live job updates").
+
 ## 1.15.0
 
 - **New `ProgressBar`** (promoted from aml-v2 `JobProgressBar`, RUPEP-5 "Upload a RuPEP file from the

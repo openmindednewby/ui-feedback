@@ -9,7 +9,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { useFeedbackUi } from '../context/FeedbackUiContext';
-import { FEEDBACK_TEST_IDS } from '../constants';
+import { FEEDBACK_TEST_IDS, MIN_TOUCH_TARGET } from '../constants';
 
 import { ErrorStateIconWell, ErrorStateSecondaryButton, type ErrorStateAction } from './ErrorStateParts';
 
@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
     columnGap: ACTION_GAP,
   },
   retryButton: {
+    minHeight: MIN_TOUCH_TARGET,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: BUTTON_MARGIN_TOP,
     paddingVertical: BUTTON_PADDING_V,
     paddingHorizontal: BUTTON_PADDING_H,

@@ -64,13 +64,13 @@ export function LiveRunCard(props: LiveRunCardProps): React.ReactElement {
         <ProgressBar percent={percent} label={labels.progress} accessibilityLabel={labels.progressA11y} color={tone} testID={`${testID}-progress`} />
       ) : null}
       {percent === null && labels.progress !== undefined ? <Text style={[styles.meta, muted]} testID={`${testID}-progress-text`}>{labels.progress}</Text> : null}
-      {compact ? <RunGroupSummary groups={groups} labels={labels} testID={`${testID}-summary`} /> : null}
+      {compact && !open ? <RunGroupSummary groups={groups} labels={labels} testID={`${testID}-summary`} /> : null}
       {compact ? (
         <RunCardButton label={labels.stepTimings} hint={labels.stepTimingsHint} color={theme.colors.textSecondary} onPress={() => setOpen(!open)} expanded={open} testID={`${testID}-timings-toggle`} />
       ) : null}
       {showTimings ? <RunGroupChips groups={groups} labels={labels} selectedId={selectedId} onSelect={setPicked} testID={`${testID}-groups`} /> : null}
       {showTimings && selected !== undefined && selected.steps.length > 0 ? (
-        <RunStepBars key={selected.id} steps={selected.steps} maxBars={maxBars} labels={labels} testID={`${testID}-steps`} />
+        <RunStepBars key={selected.id} steps={selected.steps} maxBars={maxBars} labels={labels} compact={compact} testID={`${testID}-steps`} />
       ) : null}
     </View>
   );

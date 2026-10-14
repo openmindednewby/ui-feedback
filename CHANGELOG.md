@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.16.1
+
+- **LiveRunCard step names wrap to two lines instead of truncating** ("Phase A2: resolving offi..."). At wide
+  layouts the name column takes a 35% share with a 220px floor; the time no longer wraps onto its own line.
+- **Compact step rows stack**: the name with its time right-aligned on the same line, then a full-width bar.
+- **Compact summary chips hide while step timings are open**, so the done/open chips no longer show twice.
+
 ## 1.16.0
 
 - **New `LiveRunCard`** (JOBS-LAYOUT-1 "Live run card above the table", owner decision D-JOBS-LAYOUT-1): a

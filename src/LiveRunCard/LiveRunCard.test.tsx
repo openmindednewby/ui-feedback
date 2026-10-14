@@ -74,4 +74,13 @@ describe('LiveRunCard', () => {
 
     expect(screen.getByLabelText('fetching 4s')).toBeTruthy();
   });
+
+  it('when compact and the timings are opened, hides the summary chips', () => {
+    render(<LiveRunCard title="Lists" groups={groups} labels={labels} compact />);
+    const before = screen.queryByTestId('live-run-card-summary');
+
+    fireEvent.click(screen.getByTestId('live-run-card-timings-toggle'));
+
+    expect([before, screen.queryByTestId('live-run-card-summary')].map((n) => n !== null)).toEqual([true, false]);
+  });
 });

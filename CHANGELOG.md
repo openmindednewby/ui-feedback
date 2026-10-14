@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.16.0
+
+- **New `LiveRunCard`** (JOBS-LAYOUT-1 "Live run card above the table", owner decision D-JOBS-LAYOUT-1): a
+  presentational card for one active run - status pill, title, started/elapsed line, current step,
+  `ProgressBar` with an app-supplied caption, one chip per step group (done / running / pending / failed),
+  and step-time bars scaled to the longest step with the shorter ones behind "+N shorter steps". Below
+  `LIVE_RUN_CARD_COMPACT_MAX_PX` (640) it renders compact: finished groups fold into one chip and step
+  timings sit behind a toggle. Optional Cancel. Every button and tappable chip is 48px
+  (`MIN_TOUCH_TARGET_PX`); colours come from the UiProvider theme; all text comes from the `labels` prop.
+- **Pure helpers** `mergeRunSteps` (flat steps to groups in first-seen order, 0s done rows dropped, group
+  time summed, worst state wins), `splitShorterSteps`, `defaultGroupId`, `summariseDoneGroups`,
+  `barFraction`, `progressPercent`, `runToneColor`.
+
 ## 1.15.2
 
 - **ErrorState buttons take the kit hit-target floor from `@dloizides/a11y`** (`MIN_TOUCH_TARGET_PX`,

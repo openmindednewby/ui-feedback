@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.15.2
+
+- **ErrorState buttons take the kit hit-target floor from `@dloizides/a11y`** (`MIN_TOUCH_TARGET_PX`,
+  48px) instead of a local 44px constant, matching `ui-buttons`. `@dloizides/a11y` is now a dependency
+  (JOBS-LIVE-1 "Live job updates").
+
 ## 1.15.1
 
 - **ErrorState retry and secondary buttons now have a 44px minimum height** (`MIN_TOUCH_TARGET`),

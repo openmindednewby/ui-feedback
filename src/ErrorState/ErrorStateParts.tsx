@@ -6,7 +6,8 @@ import React from 'react';
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { MIN_TOUCH_TARGET } from '../constants';
+import { MIN_TOUCH_TARGET_PX } from '@dloizides/a11y';
+
 import type { FeedbackTheme } from '../context/FeedbackUiContext';
 
 // ---------------------------------------------------------------------------
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     opacity: WELL_TINT_OPACITY,
   },
   secondaryButton: {
-    minHeight: MIN_TOUCH_TARGET,
+    minHeight: MIN_TOUCH_TARGET_PX,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: BUTTON_MARGIN_TOP,

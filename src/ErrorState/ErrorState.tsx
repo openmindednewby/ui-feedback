@@ -8,8 +8,10 @@ import React from 'react';
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { MIN_TOUCH_TARGET_PX } from '@dloizides/a11y';
+
 import { useFeedbackUi } from '../context/FeedbackUiContext';
-import { FEEDBACK_TEST_IDS, MIN_TOUCH_TARGET } from '../constants';
+import { FEEDBACK_TEST_IDS } from '../constants';
 
 import { ErrorStateIconWell, ErrorStateSecondaryButton, type ErrorStateAction } from './ErrorStateParts';
 
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     columnGap: ACTION_GAP,
   },
   retryButton: {
-    minHeight: MIN_TOUCH_TARGET,
+    minHeight: MIN_TOUCH_TARGET_PX,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: BUTTON_MARGIN_TOP,

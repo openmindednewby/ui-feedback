@@ -1,9 +1,6 @@
 /** Semi-transparent scrim behind modal dialogs. */
 export const MODAL_OVERLAY_COLOR = 'rgba(0, 0, 0, 0.5)';
 
-/** Minimum hit-box height for any pressable control (mobile-first.md, 44 CSS px). */
-export const MIN_TOUCH_TARGET = 44;
-
 /** Opacity applied to disabled interactive controls. */
 export const DISABLED_OPACITY = 0.5;
 

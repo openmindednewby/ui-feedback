@@ -128,15 +128,15 @@ describe('ErrorState opt-in props', () => {
 describe('ErrorState touch targets', () => {
   const noop = (): void => undefined;
 
-  it('with a retry handler, gives the retry button a 44px minimum height', () => {
+  it('with a retry handler, gives the retry button a 48px minimum height', () => {
     renderErrorState({ message: 'Boom', onRetry: noop });
 
     const retry = screen.getByTestId('error-state-retry');
 
-    expect(window.getComputedStyle(retry).minHeight).toBe('44px');
+    expect(window.getComputedStyle(retry).minHeight).toBe('48px');
   });
 
-  it('with a secondary action, gives the secondary button a 44px minimum height', () => {
+  it('with a secondary action, gives the secondary button a 48px minimum height', () => {
     renderErrorState({
       message: 'Boom',
       onRetry: noop,
@@ -145,6 +145,6 @@ describe('ErrorState touch targets', () => {
 
     const secondary = screen.getByTestId('error-secondary');
 
-    expect(window.getComputedStyle(secondary).minHeight).toBe('44px');
+    expect(window.getComputedStyle(secondary).minHeight).toBe('48px');
   });
 });

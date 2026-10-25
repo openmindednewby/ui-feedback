@@ -23,6 +23,7 @@ import { Z_INDEX } from '@dloizides/design-tokens';
 
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { FEEDBACK_TEST_IDS } from '../constants';
+import { resolveToastTone, toastTop, type ToastTone } from './toastTone';
 
 const IS_WEB = Platform.OS === 'web';
 
@@ -35,8 +36,6 @@ const DEFAULT_DURATION_MS = 3000;
 const DEFAULT_FADE_MS = 200;
 const DEFAULT_MAX_LENGTH = 500;
 
-const TOAST_TOP_WEB = 10;
-const TOAST_TOP_MOBILE = 40;
 const TOAST_HORIZONTAL_MARGIN = 10;
 const TOAST_INITIAL_TRANSLATE_Y = -6;
 const TOAST_MAX_WIDTH = 600;
@@ -44,6 +43,11 @@ const TOAST_PADDING_HORIZONTAL = 16;
 const TOAST_PADDING_VERTICAL = 10;
 const TOAST_BORDER_RADIUS = 8;
 const TOAST_MARGIN_VERTICAL = 6;
+const TOAST_GLYPH_SIZE = 20;
+const TOAST_GLYPH_FONT_SIZE = 12;
+const TOAST_GLYPH_LINE_HEIGHT = 18;
+const TOAST_GLYPH_GAP = 10;
+const TOAST_GLYPH_BORDER = 1.5;
 
 // Character-range bounds for the display sanitizer.
 const C0_CONTROL_END = 0x1f;
@@ -65,17 +69,9 @@ interface ToastMessage extends ToastInput {
   id: string;
 }
 
-interface ToastColors {
-  primary: string;
-  success: string;
-  error: string;
-  text: string;
-}
-
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: Platform.OS === 'web' ? TOAST_TOP_WEB : TOAST_TOP_MOBILE,
     left: TOAST_HORIZONTAL_MARGIN,
     right: TOAST_HORIZONTAL_MARGIN,
     alignItems: 'center',
@@ -91,8 +87,25 @@ const styles = StyleSheet.create({
     maxWidth: TOAST_MAX_WIDTH,
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
     elevation: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: TOAST_GLYPH_GAP,
+    borderWidth: 1,
   },
-  text: {},
+  glyph: {
+    width: TOAST_GLYPH_SIZE,
+    height: TOAST_GLYPH_SIZE,
+    borderRadius: TOAST_GLYPH_SIZE / 2,
+    borderWidth: TOAST_GLYPH_BORDER,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  glyphText: {
+    fontSize: TOAST_GLYPH_FONT_SIZE,
+    lineHeight: TOAST_GLYPH_LINE_HEIGHT,
+    fontWeight: '700',
+  },
+  text: { flexShrink: 1 },
 });
 
 /** Truncate + strip control / zero-width characters before display. */
@@ -110,23 +123,17 @@ function sanitizeToastText(input: string, maxLength: number): string {
 interface ToastItemProps {
   message: ToastMessage;
   onDone: (id: string) => void;
-  colors: ToastColors;
+  tone: ToastTone;
   durationMs: number;
   fadeMs: number;
   testID: string;
 }
 
-const ToastItem = ({ message, onDone, colors, durationMs, fadeMs, testID }: ToastItemProps): React.ReactElement => {
+const ToastItem = ({ message, onDone, tone, durationMs, fadeMs, testID }: ToastItemProps): React.ReactElement => {
   const opacityRef = useRef(new Animated.Value(0));
   const translateYRef = useRef(new Animated.Value(TOAST_INITIAL_TRANSLATE_Y));
   const opacity = opacityRef.current;
   const translateY = translateYRef.current;
-
-  const backgroundColor = useMemo((): string => {
-    if (message.type === 'success') return colors.success;
-    if (message.type === 'error') return colors.error;
-    return colors.primary;
-  }, [colors.error, colors.primary, colors.success, message.type]);
 
   const handleDone = useCallback((): void => {
     onDone(message.id);
@@ -158,10 +165,13 @@ const ToastItem = ({ message, onDone, colors, durationMs, fadeMs, testID }: Toas
     <Animated.View
       accessibilityLiveRegion={isError ? 'assertive' : 'polite'}
       role={isError ? 'alert' : 'status'}
-      style={[styles.toast, { backgroundColor, transform: [{ translateY }], opacity }]}
+      style={[styles.toast, { backgroundColor: tone.fill, borderColor: tone.border, transform: [{ translateY }], opacity }]}
       testID={testID}
     >
-      <Text style={[styles.text, { color: colors.text }]}>{message.text}</Text>
+      <View aria-hidden importantForAccessibility="no-hide-descendants" style={[styles.glyph, { borderColor: tone.ink }]}>
+        <Text style={[styles.glyphText, { color: tone.ink }]}>{tone.glyph}</Text>
+      </View>
+      <Text style={[styles.text, { color: tone.ink }]}>{message.text}</Text>
     </Animated.View>
   );
 };
@@ -180,6 +190,8 @@ export interface ToastHostProps {
   maxLength?: number;
   /** testID for each toast (defaults to `notification-toast`). */
   toastTestID?: string;
+  /** Top offset of the toast layer (px). Default: 72 on web (below a 64 px header), 40 on native. */
+  topInset?: number;
 }
 
 let toastSeq = 0;
@@ -194,16 +206,16 @@ export const ToastHost = ({
   fadeMs = DEFAULT_FADE_MS,
   maxLength = DEFAULT_MAX_LENGTH,
   toastTestID = FEEDBACK_TEST_IDS.notificationToast,
+  topInset,
 }: ToastHostProps): React.ReactElement | null => {
   const [messages, setMessages] = useState<ToastMessage[]>([]);
   const { theme } = useFeedbackUi();
 
-  const colors = useMemo<ToastColors>(
+  const tones = useMemo(
     () => ({
-      primary: theme.palette.primary['500'],
-      success: (theme.semantic.success ?? theme.semantic.error)['500'],
-      error: theme.semantic.error['500'],
-      text: theme.colors.surfaceElevated,
+      success: resolveToastTone(theme, 'success'),
+      error: resolveToastTone(theme, 'error'),
+      info: resolveToastTone(theme, 'info'),
     }),
     [theme],
   );
@@ -225,15 +237,15 @@ export const ToastHost = ({
 
   const canPortal = IS_WEB && typeof document !== 'undefined';
   const layer = (
-    <View style={[styles.container, canPortal ? WEB_FIXED_LAYER : null]}>
+    <View style={[styles.container, { top: toastTop(IS_WEB, topInset) }, canPortal ? WEB_FIXED_LAYER : null]}>
       {messages.map((m) => (
         <ToastItem
           key={m.id}
-          colors={colors}
           durationMs={durationMs}
           fadeMs={fadeMs}
           message={m}
           testID={toastTestID}
+          tone={tones[m.type ?? 'info']}
           onDone={remove}
         />
       ))}

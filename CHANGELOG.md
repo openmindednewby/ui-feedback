@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.18.0
+
+- `ToastHost`: the text and a new type glyph (check / ! / i) use an ink at 4.5:1 or better on the toast fill (`resolveOnBrand`; falls back to the 700 step, then the elevated surface with body text); success and error now differ by shape, not tint alone.
+- `ToastHost`: the web layer sits at top 72 px so a 64 px app header no longer covers it; new `topInset` prop overrides it.
+- `ToastHost`: a theme without a `success` scale uses `primary`, never `error`.
+
 ## 1.16.1
 
 - **LiveRunCard step names wrap to two lines instead of truncating** ("Phase A2: resolving offi..."). At wide

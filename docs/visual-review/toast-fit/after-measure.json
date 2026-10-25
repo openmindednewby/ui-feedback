@@ -1,0 +1,82 @@
+{
+  "360x640-success": {
+    "box": [
+      92,
+      78,
+      177,
+      42
+    ],
+    "bg": "rgb(10, 147, 150)",
+    "opacity": "1",
+    "texts": [
+      {
+        "t": "✓",
+        "color": "rgb(3, 18, 31)"
+      },
+      {
+        "t": "Saved successfully",
+        "color": "rgb(3, 18, 31)"
+      }
+    ]
+  },
+  "360x640-error": {
+    "box": [
+      59,
+      78,
+      242,
+      42
+    ],
+    "bg": "rgb(174, 32, 18)",
+    "opacity": "1",
+    "texts": [
+      {
+        "t": "!",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Could not save your changes",
+        "color": "rgb(255, 255, 255)"
+      }
+    ]
+  },
+  "1280x800-success": {
+    "box": [
+      388,
+      78,
+      504,
+      42
+    ],
+    "bg": "rgb(10, 147, 150)",
+    "opacity": "1",
+    "texts": [
+      {
+        "t": "✓",
+        "color": "rgb(3, 18, 31)"
+      },
+      {
+        "t": "Saved successfully",
+        "color": "rgb(3, 18, 31)"
+      }
+    ]
+  },
+  "1280x800-error": {
+    "box": [
+      388,
+      78,
+      504,
+      42
+    ],
+    "bg": "rgb(174, 32, 18)",
+    "opacity": "1",
+    "texts": [
+      {
+        "t": "!",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Could not save your changes",
+        "color": "rgb(255, 255, 255)"
+      }
+    ]
+  }
+}

@@ -22,3 +22,6 @@ export const FEEDBACK_TEST_IDS = {
   errorBoundary: 'error-boundary',
   progressBar: 'progress-bar',
 } as const;
+
+/** Minimum height/width of a pressable control, in px (WCAG 2.5.5 / Apple HIG 44pt). */
+export const MIN_TOUCH_TARGET = 44;

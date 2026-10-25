@@ -1,0 +1,42 @@
+{
+  "360x640": {
+    "dlgs": [
+      {
+        "modal": "true",
+        "label": null,
+        "labelledbyText": "Disconnect Stripe?"
+      }
+    ],
+    "btns": [
+      "cancel-confirm-button 144x44",
+      "confirm-button 110x44"
+    ],
+    "focused": "cancel-confirm-button",
+    "tabWalk": [
+      "confirm-button",
+      "cancel-confirm-button",
+      "confirm-button"
+    ],
+    "escapeCloses": true
+  },
+  "1280x800": {
+    "dlgs": [
+      {
+        "modal": "true",
+        "label": null,
+        "labelledbyText": "Disconnect Stripe?"
+      }
+    ],
+    "btns": [
+      "cancel-confirm-button 144x44",
+      "confirm-button 110x44"
+    ],
+    "focused": "cancel-confirm-button",
+    "tabWalk": [
+      "confirm-button",
+      "cancel-confirm-button",
+      "confirm-button"
+    ],
+    "escapeCloses": true
+  }
+}

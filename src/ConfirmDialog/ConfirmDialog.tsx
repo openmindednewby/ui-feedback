@@ -1,11 +1,12 @@
 /**
  * ConfirmDialog - modal confirm/cancel dialog with optional destructive + loading states.
  */
-import React, { useMemo } from 'react';
+import React, { useId, useMemo } from 'react';
 
 import {
   ActivityIndicator,
   Modal,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,7 +14,7 @@ import {
 } from 'react-native';
 
 import { useFeedbackUi } from '../context/FeedbackUiContext';
-import { DISABLED_OPACITY, MODAL_OVERLAY_COLOR, FEEDBACK_TEST_IDS } from '../constants';
+import { DISABLED_OPACITY, MIN_TOUCH_TARGET, MODAL_OVERLAY_COLOR, FEEDBACK_TEST_IDS } from '../constants';
 
 const DIALOG_MAX_WIDTH = 400;
 
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 6,
     minWidth: 80,
+    minHeight: MIN_TOUCH_TARGET,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -95,6 +97,8 @@ export const ConfirmDialog = ({
   destructive = false,
 }: ConfirmDialogProps): React.ReactElement | null => {
   const { theme, t } = useFeedbackUi();
+  const titleId = useId();
+  const innerDialogRole = Platform.OS === 'web' ? undefined : 'dialog';
 
   const colorStyles = useMemo(
     () => ({
@@ -122,6 +126,7 @@ export const ConfirmDialog = ({
   return (
     <Modal
       transparent
+      aria-labelledby={titleId}
       animationType="fade"
       visible={visible}
       onRequestClose={onCancel}
@@ -129,11 +134,11 @@ export const ConfirmDialog = ({
       <View style={styles.overlay} testID={FEEDBACK_TEST_IDS.confirmDialog}>
         <View
           accessibilityViewIsModal
-          aria-label={title}
-          role="dialog"
+          aria-label={innerDialogRole === undefined ? undefined : title}
+          role={innerDialogRole}
           style={[styles.dialog, colorStyles.dialog]}
         >
-          <Text style={[styles.title, colorStyles.title]}>{title}</Text>
+          <Text nativeID={titleId} style={[styles.title, colorStyles.title]}>{title}</Text>
           <Text style={[styles.message, colorStyles.message]}>{message}</Text>
 
           <View style={styles.buttonRow}>

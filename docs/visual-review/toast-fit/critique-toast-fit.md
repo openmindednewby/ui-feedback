@@ -46,3 +46,11 @@ Captures are from ui-showcase, not the kefi-web screen in item C (kefi header he
 | F1 | Desktop toast shrink-to-fit width (min 280, max 504) or centred icon+label group (critic fix 1) | frontend-dev, ui-feedback | open |
 | F2 | Desktop label 14px -> 15-16px to match mobile reading size (critic fix 2) | frontend-dev, ui-feedback | open |
 | F3 | At 360 confirm auto-dismiss + a >= 44x44 tap-to-dismiss target so the toast never blocks the control under it (critic fix 3) | frontend-dev, ui-feedback | open |
+
+## Addendum: checked against the original item C (critique-comp-resend.md, round 3, lines 190-204)
+
+- Fix 2 there asked for top >= 72 px below a 64 px kefi header: 1.18.0 gives top 78. Met on paper; not re-sighted on kefi.
+- The 1.1:1 there was measured in kefi-web on a PALE tint (rgb(236,241,232) success, rgb(247,236,231) error), not on the solid teal/red seen here. These captures prove the package default; they do not prove kefi's theme now resolves to a solid surface or dark ink. Item C closes only on a kefi-web re-capture.
+- Item C also had a 2-line 403 message that spilled below the header rule at 360; no 2-line message was captured here.
+
+This is a PASS for the package. Item C itself stays open until kefi-web shows the success and 403 toasts at 360x640 and 1280x800 on 1.18.0.

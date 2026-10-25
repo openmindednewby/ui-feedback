@@ -16,6 +16,8 @@ import {
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { DISABLED_OPACITY, MIN_TOUCH_TARGET, MODAL_OVERLAY_COLOR, FEEDBACK_TEST_IDS } from '../constants';
 
+import { confirmFill, confirmInk } from './confirmDialogColors';
+
 const DIALOG_MAX_WIDTH = 400;
 
 const styles = StyleSheet.create({
@@ -107,10 +109,8 @@ export const ConfirmDialog = ({
       message: { color: theme.colors.textSecondary },
       cancelButton: { borderColor: theme.colors.border },
       cancelButtonText: { color: theme.colors.text },
-      confirmButton: {
-        backgroundColor: destructive ? theme.semantic.error['500'] : theme.palette.primary['500'],
-      },
-      confirmButtonText: { color: theme.colors.surfaceElevated },
+      confirmButton: { backgroundColor: confirmFill(theme, destructive) },
+      confirmButtonText: { color: confirmInk(theme, destructive) },
     }),
     [theme, destructive]
   );
@@ -176,7 +176,7 @@ export const ConfirmDialog = ({
             >
               {loading ? (
                 <ActivityIndicator
-                  color={theme.colors.surfaceElevated}
+                  color={confirmInk(theme, destructive)}
                   size="small"
                   testID="confirm-loading"
                 />

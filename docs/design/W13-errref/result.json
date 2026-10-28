@@ -1,5 +1,6 @@
 {
   "countMethod": "visible-in-frame",
+  "rowsMethod": "auto",
   "pairMethod": "same-steps",
   "traceIdShown": "4bf92f3577b34da6a3ce929d0e0e4736",
   "options": {
@@ -14,7 +15,7 @@
       ],
       "inventory": "6/6",
       "aligned": "pass",
-      "alignedNote": "no side-by-side form row on these screens"
+      "alignedNote": "discoverRows on every frame: 8 rows, max offset 0px"
     },
     "B": {
       "items": [
@@ -27,7 +28,7 @@
       ],
       "inventory": "6/6",
       "aligned": "pass",
-      "alignedNote": "no side-by-side form row on these screens"
+      "alignedNote": "discoverRows on every frame: 8 rows, max offset 0px"
     },
     "C": {
       "items": [
@@ -40,7 +41,7 @@
       ],
       "inventory": "6/6",
       "aligned": "pass",
-      "alignedNote": "no side-by-side form row on these screens"
+      "alignedNote": "discoverRows on every frame: 8 rows, max offset 0px"
     }
   },
   "frames": [
@@ -77,7 +78,8 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "A",
@@ -112,7 +114,8 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "A",
@@ -139,7 +142,8 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "A",
@@ -166,7 +170,8 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "A",
@@ -201,7 +206,25 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 476 h 48",
+            "showcase-error-rich-secondary top 476 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 726 h 48",
+            "showcase-toast-error top 726 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "A",
@@ -236,7 +259,25 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 476 h 48",
+            "showcase-error-rich-secondary top 476 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 782 h 48",
+            "showcase-toast-error top 782 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "A",
@@ -263,7 +304,25 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 156 h 48",
+            "showcase-error-rich-secondary top 156 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 406 h 48",
+            "showcase-toast-error top 406 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "A",
@@ -290,7 +349,25 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 156 h 48",
+            "showcase-error-rich-secondary top 156 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 462 h 48",
+            "showcase-toast-error top 462 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "B",
@@ -325,7 +402,8 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "B",
@@ -360,7 +438,8 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "B",
@@ -387,7 +466,8 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "B",
@@ -414,7 +494,8 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "B",
@@ -449,7 +530,25 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 476 h 48",
+            "showcase-error-rich-secondary top 476 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 726 h 48",
+            "showcase-toast-error top 726 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "B",
@@ -484,7 +583,25 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 476 h 48",
+            "showcase-error-rich-secondary top 476 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 782 h 48",
+            "showcase-toast-error top 782 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "B",
@@ -511,7 +628,25 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 156 h 48",
+            "showcase-error-rich-secondary top 156 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 406 h 48",
+            "showcase-toast-error top 406 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "B",
@@ -538,7 +673,25 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 156 h 48",
+            "showcase-error-rich-secondary top 156 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 462 h 48",
+            "showcase-toast-error top 462 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "C",
@@ -573,7 +726,8 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "C",
@@ -608,7 +762,8 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "C",
@@ -635,7 +790,8 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "C",
@@ -662,7 +818,8 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": []
     },
     {
       "option": "C",
@@ -697,7 +854,25 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 476 h 48",
+            "showcase-error-rich-secondary top 476 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 726 h 48",
+            "showcase-toast-error top 726 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "C",
@@ -732,7 +907,25 @@
           "page-retry",
           "page-back"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 476 h 48",
+            "showcase-error-rich-secondary top 476 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 726 h 48",
+            "showcase-toast-error top 726 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "C",
@@ -759,7 +952,25 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 156 h 48",
+            "showcase-error-rich-secondary top 156 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 406 h 48",
+            "showcase-toast-error top 406 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     },
     {
       "option": "C",
@@ -786,7 +997,25 @@
         "after": [
           "toast-message"
         ]
-      }
+      },
+      "rows": [
+        {
+          "controls": [
+            "error-state-retry top 156 h 48",
+            "showcase-error-rich-secondary top 156 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        },
+        {
+          "controls": [
+            "showcase-toast-trigger top 406 h 48",
+            "showcase-toast-error top 406 h 48"
+          ],
+          "px": 0,
+          "discovered": "auto"
+        }
+      ]
     }
   ]
 }

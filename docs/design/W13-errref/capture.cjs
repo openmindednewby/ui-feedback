@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { chromium, devices } = require('C:/desktopContents/projects/SaaS/E2ETests/node_modules/playwright');
+const { discoverRows } = require('C:/desktopContents/projects/SaaS/kefi-web/docs/visual-review/lib/visible-in-frame.cjs');
 
 const OUT = __dirname;
 const ORIGIN = 'https://ui.dloizides.com';
@@ -52,9 +53,12 @@ async function injectPage(page) {
     const copy = document.createElement('button');
     copy.textContent = 'Copy';
     copy.setAttribute('aria-label', 'Copy error reference');
-    copy.style.cssText = `min-height:44px;min-width:44px;padding:0 4px;border:0;background:transparent;font:600 13px/18px ${cs.fontFamily};color:${cs.color};text-decoration:underline;text-underline-offset:3px;cursor:pointer`;
+    copy.style.cssText = `box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:56px;padding:0 8px;border:0;background:transparent;font:600 13px/18px ${cs.fontFamily};color:${cs.color};text-decoration:underline;text-underline-offset:3px;cursor:pointer`;
     row.append(label, code, copy);
-    msg.after(row);
+    row.style.marginTop = '12px';
+    const retry = document.querySelector('[data-testid="showcase-error-rich"] [data-testid="error-state-retry"]');
+    const actions = retry ? retry.parentElement : null;
+    (actions && actions !== msg.parentElement ? actions : msg).after(row);
   }, { short: SHORT, full: TRACE });
 }
 
@@ -64,8 +68,11 @@ async function injectToast(page) {
     const cs = getComputedStyle(textEl);
     const ref = document.createElement('div');
     ref.setAttribute('data-testid', 'notification-toast-reference');
-    ref.textContent = `Error reference ${short}`;
-    ref.style.cssText = `margin-top:2px;font:500 12px/16px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:${cs.color};opacity:.85`;
+    ref.style.cssText = `margin-top:2px;font:400 12px/16px ${cs.fontFamily};color:${cs.color};opacity:.9`;
+    const id = document.createElement('span');
+    id.textContent = short;
+    id.style.cssText = 'font:500 12px/16px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.04em';
+    ref.append('Error reference ', id);
     const col = document.createElement('div');
     col.style.cssText = 'display:flex;flex-direction:column;flex:1 1 auto;min-width:0';
     textEl.replaceWith(col);
@@ -107,22 +114,23 @@ async function visibleItems(page, shot) {
           const ctx = await browser.newContext({ ...desc, colorScheme: 'light' });
           const page = await ctx.newPage();
           const anchorTop = await steps(page, shot);
-          if (side === 'after' && show[shot]) await (shot === 'page' ? injectPage(page) : injectToast(page));
+          if (side === 'after' && show.page) await injectPage(page);
+          if (side === 'after' && shot === 'toast' && show.toast) await injectToast(page);
           const file = `img/${side}/${opt}-${shot}-${vp}.png`;
           await page.screenshot({ path: path.join(OUT, file) });
           const vis = await visibleItems(page, shot);
           vis.forEach((v) => side === 'after' && seen.add(v));
-          rec[side] = { anchorTop, vis };
+          rec[side] = { anchorTop, vis, rows: await page.evaluate(discoverRows, null) };
           frames.push({ option: opt, shot: `${shot}-${vp}`, side, build: side === 'before' ? 'live ui.dloizides.com (ui-feedback 1.18.0)' : `live + option ${opt} mock`, file, pair, landed: { path: new URL(page.url()).pathname, anchorTop } });
           await ctx.close();
         }
         if (Math.abs(rec.before.anchorTop - rec.after.anchorTop) > 1) throw new Error(`anchor drift ${opt} ${shot} ${vp}`);
-        frames.filter((f) => f.option === opt && f.shot === `${shot}-${vp}`).forEach((f) => { f.visibleItems = { before: rec.before.vis, after: rec.after.vis }; });
+        frames.filter((f) => f.option === opt && f.shot === `${shot}-${vp}`).forEach((f) => { f.visibleItems = { before: rec.before.vis, after: rec.after.vis }; f.rows = rec[f.side].rows; });
       }
     }
     options[opt] = { items: ALL_ITEMS, inventory: `${seen.size}/${ALL_ITEMS.length}`, aligned: 'pass', alignedNote: 'no side-by-side form row on these screens' };
   }
   await browser.close();
-  fs.writeFileSync(path.join(OUT, 'result.json'), JSON.stringify({ countMethod: 'visible-in-frame', pairMethod: 'same-steps', traceIdShown: TRACE, options, frames }, null, 2));
+  fs.writeFileSync(path.join(OUT, 'result.json'), JSON.stringify({ countMethod: 'visible-in-frame', rowsMethod: 'auto', pairMethod: 'same-steps', traceIdShown: TRACE, options, frames }, null, 2));
   console.log(JSON.stringify(options));
 })().catch((e) => { console.error(e); process.exit(1); });

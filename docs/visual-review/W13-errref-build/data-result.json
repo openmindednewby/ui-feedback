@@ -1,0 +1,391 @@
+{
+  "task": "OBS-1 \"Every app ships metrics, production-grade logs and alerts with working links\"",
+  "decision": "D-OBS-23 option A, D-OBS-24",
+  "pairMethod": "same-steps",
+  "frames": [
+    {
+      "option": "W13-errref",
+      "shot": "state-trace",
+      "side": "before",
+      "build": "ui-feedback 1.18.0",
+      "file": "before/W13-errref-state-trace-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { traceId: 4bf92f35 }",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-state-trace",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRows": 0
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-trace",
+      "side": "after",
+      "build": "ui-feedback 1.19.0",
+      "file": "after/W13-errref-state-trace-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { traceId: 4bf92f35 }",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-state-trace",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRows": 1
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-plain",
+      "side": "before",
+      "build": "ui-feedback 1.18.0",
+      "file": "before/W13-errref-state-plain-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { status: 500 }, no traceId",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-state-plain",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRows": 0
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-plain",
+      "side": "after",
+      "build": "ui-feedback 1.19.0",
+      "file": "after/W13-errref-state-plain-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { status: 500 }, no traceId",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-state-plain",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRows": 1
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-trace",
+      "side": "before",
+      "build": "ui-feedback 1.18.0",
+      "file": "before/W13-errref-toast-trace-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-trace",
+        "fixture": "toastBus.error(text, { traceId: 4bf92f35 })",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 324,
+        "viewportAnchorTop": 324,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRows": 0
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-trace",
+      "side": "after",
+      "build": "ui-feedback 1.19.0",
+      "file": "after/W13-errref-toast-trace-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-trace",
+        "fixture": "toastBus.error(text, { traceId: 4bf92f35 })",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 324,
+        "viewportAnchorTop": 324,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRows": 2
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-plain",
+      "side": "before",
+      "build": "ui-feedback 1.18.0",
+      "file": "before/W13-errref-toast-plain-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-plain",
+        "fixture": "toastBus.error(text, { status: 500 })",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 324,
+        "viewportAnchorTop": 324,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRows": 0
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-plain",
+      "side": "after",
+      "build": "ui-feedback 1.19.0",
+      "file": "after/W13-errref-toast-plain-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-plain",
+        "fixture": "toastBus.error(text, { status: 500 })",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 324,
+        "viewportAnchorTop": 324,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRows": 1
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-trace",
+      "side": "before",
+      "build": "ui-feedback 1.18.0",
+      "file": "before/W13-errref-state-trace-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { traceId: 4bf92f35 }",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-state-trace",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRows": 0
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-trace",
+      "side": "after",
+      "build": "ui-feedback 1.19.0",
+      "file": "after/W13-errref-state-trace-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { traceId: 4bf92f35 }",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-state-trace",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRows": 1
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-plain",
+      "side": "before",
+      "build": "ui-feedback 1.18.0",
+      "file": "before/W13-errref-state-plain-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { status: 500 }, no traceId",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-state-plain",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 276,
+        "viewportAnchorTop": 276,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRows": 0
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-plain",
+      "side": "after",
+      "build": "ui-feedback 1.19.0",
+      "file": "after/W13-errref-state-plain-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { status: 500 }, no traceId",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-state-plain",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 276,
+        "viewportAnchorTop": 276,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRows": 1
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-trace",
+      "side": "before",
+      "build": "ui-feedback 1.18.0",
+      "file": "before/W13-errref-toast-trace-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-trace",
+        "fixture": "toastBus.error(text, { traceId: 4bf92f35 })",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 560,
+        "viewportAnchorTop": 560,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRows": 0
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-trace",
+      "side": "after",
+      "build": "ui-feedback 1.19.0",
+      "file": "after/W13-errref-toast-trace-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-trace",
+        "fixture": "toastBus.error(text, { traceId: 4bf92f35 })",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 560,
+        "viewportAnchorTop": 560,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRows": 2
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-plain",
+      "side": "before",
+      "build": "ui-feedback 1.18.0",
+      "file": "before/W13-errref-toast-plain-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-plain",
+        "fixture": "toastBus.error(text, { status: 500 })",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 560,
+        "viewportAnchorTop": 560,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRows": 0
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-plain",
+      "side": "after",
+      "build": "ui-feedback 1.19.0",
+      "file": "after/W13-errref-toast-plain-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-plain",
+        "fixture": "toastBus.error(text, { status: 500 })",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 560,
+        "viewportAnchorTop": 560,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRows": 1
+      }
+    }
+  ]
+}

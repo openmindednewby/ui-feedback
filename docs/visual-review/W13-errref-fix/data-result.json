@@ -1,0 +1,262 @@
+{
+  "task": "OBS-1 \"Every app ships metrics, production-grade logs and alerts with working links\"",
+  "decision": "D-OBS-23 option A, W13-errref build critique top fixes 2 and 3",
+  "pairMethod": "same-steps",
+  "options": {
+    "W13-errref": {
+      "inventory": "6/6",
+      "inventoryItems": [
+        "page title",
+        "page message",
+        "page Retry",
+        "page Back to library",
+        "toast icon",
+        "toast message"
+      ],
+      "notInComponent": "ToastHost 1.19.x renders no action and no dismiss control (src grep: 0 matches), so neither can be captured",
+      "aligned": "pass"
+    }
+  },
+  "frames": [
+    {
+      "option": "W13-errref",
+      "shot": "state-trace",
+      "side": "before",
+      "build": "ui-feedback 1.19.0",
+      "file": "before/W13-errref-state-trace-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { traceId: 4bf92f35 }",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-state-trace",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRowsInViewport": 1,
+        "copyBox": {
+          "width": 56,
+          "height": 48
+        },
+        "copyBoxMin56x44": true,
+        "copyOnIdLine": false
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-trace",
+      "side": "after",
+      "build": "ui-feedback 1.19.2",
+      "file": "after/W13-errref-state-trace-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { traceId: 4bf92f35 }",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-state-trace",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRowsInViewport": 1,
+        "copyBox": {
+          "width": 56,
+          "height": 48
+        },
+        "copyBoxMin56x44": true,
+        "copyOnIdLine": true
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-trace",
+      "side": "before",
+      "build": "ui-feedback 1.19.0",
+      "file": "before/W13-errref-toast-trace-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-trace",
+        "fixture": "toastBus.error(text, { traceId: 4bf92f35 })",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 324,
+        "viewportAnchorTop": 324,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRowsInViewport": 1,
+        "copyBox": {
+          "width": 56,
+          "height": 48
+        },
+        "copyBoxMin56x44": true,
+        "copyOnIdLine": true
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-trace",
+      "side": "after",
+      "build": "ui-feedback 1.19.2",
+      "file": "after/W13-errref-toast-trace-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-trace",
+        "fixture": "toastBus.error(text, { traceId: 4bf92f35 })",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 324,
+        "viewportAnchorTop": 324,
+        "viewportHeight": 640
+      },
+      "observed": {
+        "referenceRowsInViewport": 1,
+        "copyBox": {
+          "width": 56,
+          "height": 48
+        },
+        "copyBoxMin56x44": true,
+        "copyOnIdLine": true
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-trace",
+      "side": "before",
+      "build": "ui-feedback 1.19.0",
+      "file": "before/W13-errref-state-trace-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { traceId: 4bf92f35 }",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-state-trace",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRowsInViewport": 1,
+        "copyBox": {
+          "width": 56,
+          "height": 48
+        },
+        "copyBoxMin56x44": true,
+        "copyOnIdLine": true
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "state-trace",
+      "side": "after",
+      "build": "ui-feedback 1.19.2",
+      "file": "after/W13-errref-state-trace-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "page load, no interaction",
+        "fixture": "error { traceId: 4bf92f35 }",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-state-trace",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 61,
+        "viewportAnchorTop": 61,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRowsInViewport": 1,
+        "copyBox": {
+          "width": 56,
+          "height": 48
+        },
+        "copyBoxMin56x44": true,
+        "copyOnIdLine": true
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-trace",
+      "side": "before",
+      "build": "ui-feedback 1.19.0",
+      "file": "before/W13-errref-toast-trace-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-trace",
+        "fixture": "toastBus.error(text, { traceId: 4bf92f35 })",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 560,
+        "viewportAnchorTop": 560,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRowsInViewport": 2,
+        "copyBox": {
+          "width": 56,
+          "height": 48
+        },
+        "copyBoxMin56x44": true,
+        "copyOnIdLine": true
+      }
+    },
+    {
+      "option": "W13-errref",
+      "shot": "toast-trace",
+      "side": "after",
+      "build": "ui-feedback 1.19.2",
+      "file": "after/W13-errref-toast-trace-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "clicked showcase-errref-toast-trace",
+        "fixture": "toastBus.error(text, { traceId: 4bf92f35 })",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-errref-toasts",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 560,
+        "viewportAnchorTop": 560,
+        "viewportHeight": 800
+      },
+      "observed": {
+        "referenceRowsInViewport": 2,
+        "copyBox": {
+          "width": 56,
+          "height": 48
+        },
+        "copyBoxMin56x44": true,
+        "copyOnIdLine": true
+      }
+    }
+  ]
+}

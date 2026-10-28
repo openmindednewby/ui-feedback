@@ -47,6 +47,8 @@ export interface AsyncSurfaceProps {
    * server's raw text is never shown to a user.
    */
   message?: string;
+  /** The query's error; its `traceId` shows as "Error reference" on the error card. */
+  error?: unknown;
   children: React.ReactNode;
 }
 
@@ -57,13 +59,14 @@ export const AsyncSurface = ({
   skeletonRows = DEFAULT_SKELETON_ROWS,
   variant = 'list',
   message,
+  error,
   children,
 }: AsyncSurfaceProps): React.ReactNode => {
   const { t } = useFeedbackUi();
 
   // Error FIRST. See the docblock — reversing these two lines reintroduces the vanishing
   // retry button, and `AsyncSurface.test.tsx` fails if it is reversed.
-  if (isError) return <ErrorState message={message ?? t('common.loadFailed')} onRetry={onRetry} />;
+  if (isError) return <ErrorState error={error} message={message ?? t('common.loadFailed')} onRetry={onRetry} />;
   if (loading) return <PageSkeleton showHeader rows={skeletonRows} variant={variant} />;
 
   return children;

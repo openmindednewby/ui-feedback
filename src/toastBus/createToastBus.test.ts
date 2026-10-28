@@ -130,4 +130,24 @@ describe('createToastBus', () => {
     // reference would resubscribe on every render.
     expect(bus.subscribe).toBe(bus.subscribe);
   });
+
+  it('error with a cause carrying a traceId, delivers the trace id with the toast', () => {
+    const bus = createToastBus();
+    const a = collector();
+    bus.subscribe(a.push);
+
+    bus.error('Save failed', Object.assign(new Error('500'), { traceId: '4bf92f35' }));
+
+    expect(a.seen).toEqual([{ text: 'Save failed', type: 'error', traceId: '4bf92f35' }]);
+  });
+
+  it('error with a cause lacking a traceId, delivers the toast without one', () => {
+    const bus = createToastBus();
+    const a = collector();
+    bus.subscribe(a.push);
+
+    bus.error('Save failed', new Error('500'));
+
+    expect(a.seen[0]).not.toHaveProperty('traceId');
+  });
 });

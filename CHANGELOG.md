@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.19.0
+
+- Error reference (OBS-1 "Every app ships metrics, production-grade logs and alerts with working links", D-OBS-23 option A): `ErrorState` takes `error` and `AsyncSurface` passes its new `error` prop through; when the error carries a `traceId` (`@dloizides/bff-web-client` >= 1.4.0) a row "Error reference: <id>" + Copy (56x48 hit box, Copied / Copy failed for 1.5 s) sits below Retry / Back. Hidden without an id, so existing callers render the same tree.
+- `ToastHost`: `ToastInput.traceId` adds the same row under an error toast's text; `toastBus.error(text, error)` reads it from the error.
+- New exports `ErrorReferenceRow`, `readTraceId`, `copyText`, `useCopyToClipboard`, `CopyStatus`, `COPY_FEEDBACK_MS`.
+- New translation key the host provides: `common.errorReference` ("Error reference:"); reuses `common.copy`, `common.copied`, `common.copyFailed`, `common.copyHint`.
+
 ## 1.18.0
 
 - `ToastHost`: the text and a new type glyph (check / ! / i) use an ink at 4.5:1 or better on the toast fill (`resolveOnBrand`; falls back to the 700 step, then the elevated surface with body text); success and error now differ by shape, not tint alone.

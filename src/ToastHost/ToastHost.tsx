@@ -23,6 +23,7 @@ import { Z_INDEX } from '@dloizides/design-tokens';
 
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { FEEDBACK_TEST_IDS } from '../constants';
+import { ErrorReferenceRow } from '../ErrorReference/ErrorReferenceRow';
 import { resolveToastTone, toastTop, type ToastTone } from './toastTone';
 
 const IS_WEB = Platform.OS === 'web';
@@ -63,6 +64,8 @@ export type ToastType = 'success' | 'info' | 'error';
 export interface ToastInput {
   text: string;
   type?: ToastType;
+  /** Trace id of the failed request; an error toast shows it as "Error reference" + Copy. */
+  traceId?: string;
 }
 
 interface ToastMessage extends ToastInput {
@@ -105,6 +108,7 @@ const styles = StyleSheet.create({
     lineHeight: TOAST_GLYPH_LINE_HEIGHT,
     fontWeight: '700',
   },
+  body: { flexShrink: 1 },
   text: { flexShrink: 1 },
 });
 
@@ -171,7 +175,10 @@ const ToastItem = ({ message, onDone, tone, durationMs, fadeMs, testID }: ToastI
       <View aria-hidden importantForAccessibility="no-hide-descendants" style={[styles.glyph, { borderColor: tone.ink }]}>
         <Text style={[styles.glyphText, { color: tone.ink }]}>{tone.glyph}</Text>
       </View>
-      <Text style={[styles.text, { color: tone.ink }]}>{message.text}</Text>
+      <View style={styles.body}>
+        <Text style={[styles.text, { color: tone.ink }]}>{message.text}</Text>
+        <ErrorReferenceRow actionColor={tone.ink} color={tone.ink} testID={`${testID}-reference`} traceId={message.traceId} />
+      </View>
     </Animated.View>
   );
 };
@@ -222,7 +229,7 @@ export const ToastHost = ({
 
   const push = useCallback(
     (toast: ToastInput): void => {
-      setMessages((s) => [...s, { id: nextId(), type: toast.type, text: sanitizeToastText(toast.text, maxLength) }]);
+      setMessages((s) => [...s, { id: nextId(), type: toast.type, text: sanitizeToastText(toast.text, maxLength), traceId: toast.traceId }]);
     },
     [maxLength],
   );

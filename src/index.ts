@@ -85,6 +85,16 @@ export type { AppErrorBoundaryProps, ErrorFallbackState } from './AppErrorBounda
 export { DEFAULT_ERROR_BOUNDARY_LABELS } from './AppErrorBoundary/labels';
 export type { ErrorBoundaryLabels } from './AppErrorBoundary/labels';
 
+export {
+  ErrorReferenceRow,
+  readTraceId,
+  copyText,
+  CopyStatus,
+  useCopyToClipboard,
+  COPY_FEEDBACK_MS,
+} from './ErrorReference';
+export type { ErrorReferenceRowProps, CopyToClipboard } from './ErrorReference';
+
 export { ProgressBar } from './ProgressBar/ProgressBar';
 export type { ProgressBarProps } from './ProgressBar/ProgressBar';
 export { clampPercent } from './ProgressBar/clampPercent';

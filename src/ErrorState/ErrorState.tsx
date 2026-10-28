@@ -13,6 +13,9 @@ import { MIN_TOUCH_TARGET_PX } from '@dloizides/a11y';
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { FEEDBACK_TEST_IDS } from '../constants';
 
+import { ErrorReferenceRow } from '../ErrorReference/ErrorReferenceRow';
+import { readTraceId } from '../ErrorReference/utils/readTraceId';
+
 import { ErrorStateIconWell, ErrorStateSecondaryButton, type ErrorStateAction } from './ErrorStateParts';
 
 export type { ErrorStateAction } from './ErrorStateParts';
@@ -31,6 +34,7 @@ const BUTTON_FONT_SIZE = 14;
 const TITLE_FONT_SIZE = 20;
 const TITLE_MARGIN_BOTTOM = 8;
 const ACTION_GAP = 12;
+const REFERENCE_MARGIN_TOP = 12;
 
 // ---------------------------------------------------------------------------
 // Styles
@@ -68,6 +72,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: BUTTON_PADDING_H,
     borderRadius: BUTTON_BORDER_RADIUS,
   },
+  reference: {
+    justifyContent: 'center',
+    marginTop: REFERENCE_MARGIN_TOP,
+  },
   retryText: {
     fontSize: BUTTON_FONT_SIZE,
     fontWeight: '600',
@@ -88,6 +96,8 @@ export interface ErrorStateProps {
   icon?: React.ReactNode;
   /** Outline button beside retry, e.g. "Back to library". */
   secondaryAction?: ErrorStateAction;
+  /** The failed request's error; its `traceId` shows as "Error reference" + Copy below the actions. */
+  error?: unknown;
 }
 
 // ---------------------------------------------------------------------------
@@ -101,6 +111,7 @@ export const ErrorState = ({
   title,
   icon,
   secondaryAction,
+  error,
 }: ErrorStateProps): React.ReactElement => {
   const { theme, t } = useFeedbackUi();
   const errorColor = theme.semantic.error['500'];
@@ -147,6 +158,13 @@ export const ErrorState = ({
           <ErrorStateSecondaryButton action={secondaryAction} theme={theme} />
         </View>
       )}
+      <ErrorReferenceRow
+        actionColor={primary}
+        color={theme.colors.textSecondary}
+        style={styles.reference}
+        testID={`${testID}-reference`}
+        traceId={readTraceId(error)}
+      />
     </View>
   );
 };

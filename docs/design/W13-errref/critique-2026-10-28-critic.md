@@ -69,3 +69,41 @@ Retry renders the raw key `common.retry` in every before and after (ui-showcase 
 NOT COVERED: dark mode not captured; Copy hit box and "Copied" feedback not measured (pixels only); toast motion and
 dwell time not judged from stills; real device not used; 1280 desktop-wide layouts above 1280 not seen; long trace ids
 or long localized labels (TEXT-FIT-1 in other locales) not rendered.
+
+---
+
+## Round 2 (2026-10-28, ui-feedback 5aa8664, artifact v2)
+
+C is unchanged: its images are byte-identical to round 1, so the round-1 C row stands (PASS, 4.1).
+
+**Hard fails:** none. A and B are 6/6 in every after frame. `rowsMethod: "auto"` is declared, and each 1280 frame
+records 2 discovered rows (Retry + Back, and the ToastHost pair), both 0 px off. The 360 frames record no rows because
+those buttons stack. Pair keys are equal on all 24 frames.
+
+**Round-1 fixes, checked on the pixels:**
+- A toast-1280 after now carries both changes: the page card shows the reference row and the toast shows its second line. Fixed.
+- The page reference row now sits below Retry / Back at 360 and 1280. Nothing sits between the message and the primary action any more. Fixed.
+- Toast label: "Error reference" is in the body sans and only `4bf92f35` is mono, the same as on the page. Fixed.
+- Copy hit box ≥ 56x44: this is the designer's claim. The glyph is unchanged and the box cannot be measured from pixels. Not verified.
+
+**New finding (record, not design; not a hard fail):** in the toast shots with the page change, the content above the
+ToastHost anchor grows by 56 px. The trigger lands at 462 px in the after frame and at 406 px in the before frame. That
+matches `rows` in the same `result.json`, but `landed.anchorTop` still says 406 for both. `landed` is measured before the
+mock is injected, so it is false for the after frame. Both frames show the same screen in the same state, and the 56 px
+shift is the option's own added row. Fix: measure `landed` after `injectPage` / `injectToast`.
+
+| # | A r2 | B r2 |
+|---|---|---|
+| 1 | 4 | 4 |
+| 2 | 3 | 3 |
+| 3 | 4: one type treatment; reference row is a footnote below the actions | 4 |
+| 4 | 4 | 4 |
+| 5 | 4 | 4 |
+| 6 | 5 | 5 |
+| 7 | 4: both viewports fit and render A | 4 |
+| 8 | 5: 6/6 | 5: 6/6 |
+| **Mean / lowest** | **4.1 / #2=3, PASS** | **4.1 / #2=3, PASS** |
+
+The three options tie at 4.1. Choosing among A, B and C is a product decision for the owner (how far the reference shows).
+
+NOT COVERED (round 2): the Copy hit box and "Copied" feedback, dark mode, toast motion, a real device, and other locales.

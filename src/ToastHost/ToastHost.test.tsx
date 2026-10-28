@@ -120,4 +120,22 @@ describe('ToastHost', () => {
     expect(zIndex).toBeGreaterThan(Z_INDEX.popover);
     expect(zIndex).toBeGreaterThan(Z_INDEX.modal);
   });
+
+  it('with an error toast carrying a traceId, shows the error reference row', () => {
+    const bus = makeBus();
+    renderWithUi(<ToastHost subscribe={bus.subscribe} />);
+
+    act(() => bus.emit({ text: 'Boom', type: 'error', traceId: '4bf92f35' }));
+
+    expect(screen.getByTestId('notification-toast-reference-id').textContent).toBe('4bf92f35');
+  });
+
+  it('with a toast without a traceId, shows no error reference row', () => {
+    const bus = makeBus();
+    renderWithUi(<ToastHost subscribe={bus.subscribe} />);
+
+    act(() => bus.emit({ text: 'Boom', type: 'error' }));
+
+    expect(screen.queryByTestId('notification-toast-reference')).toBeNull();
+  });
 });

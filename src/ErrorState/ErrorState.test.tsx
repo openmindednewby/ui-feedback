@@ -147,4 +147,20 @@ describe('ErrorState touch targets', () => {
 
     expect(window.getComputedStyle(secondary).minHeight).toBe('48px');
   });
+
+  it('with an error carrying a traceId, shows it in the error reference row', () => {
+    renderErrorState({ message: 'Boom', onRetry: noop, error: { traceId: '4bf92f35' } });
+
+    const id = screen.getByTestId('error-state-reference-id');
+
+    expect(id.textContent).toBe('4bf92f35');
+  });
+
+  it('with an error without a traceId, shows no error reference row', () => {
+    renderErrorState({ message: 'Boom', onRetry: noop, error: new Error('boom') });
+
+    const row = screen.queryByTestId('error-state-reference');
+
+    expect(row).toBeNull();
+  });
 });

@@ -25,6 +25,7 @@
  * <ToastHost subscribe={toastBus.subscribe} />
  * ```
  */
+import { readTraceId } from '../ErrorReference/utils/readTraceId';
 import type { ToastInput, ToastType } from '../ToastHost/ToastHost';
 
 /** A registered push callback — what `<ToastHost>` hands to {@link ToastBus.subscribe}. */
@@ -37,8 +38,8 @@ export interface ToastBus {
   emit(text: string, type?: ToastType): void;
   /** Emit a success toast. */
   success(text: string): void;
-  /** Emit an error toast. */
-  error(text: string): void;
+  /** Emit an error toast; pass the failed request's error to show its trace id as "Error reference". */
+  error(text: string, cause?: unknown): void;
   /** Emit an informational toast. */
   info(text: string): void;
 }
@@ -52,10 +53,12 @@ const DEFAULT_TOAST_TYPE: ToastType = 'info';
 export function createToastBus(): ToastBus {
   const listeners = new Set<ToastPush>();
 
+  const push = (toast: ToastInput): void => {
+    for (const listener of [...listeners]) listener(toast);
+  };
+
   const emit = (text: string, type: ToastType = DEFAULT_TOAST_TYPE): void => {
-    // Iterate a snapshot so a listener that unsubscribes (or subscribes) while
-    // handling a toast cannot mutate the set mid-iteration.
-    for (const push of [...listeners]) push({ text, type });
+    push({ text, type });
   };
 
   return {
@@ -69,8 +72,10 @@ export function createToastBus(): ToastBus {
     success(text: string): void {
       emit(text, 'success');
     },
-    error(text: string): void {
-      emit(text, 'error');
+    error(text: string, cause?: unknown): void {
+      const traceId = readTraceId(cause);
+      if (traceId === undefined) emit(text, 'error');
+      else push({ text, type: 'error', traceId });
     },
     info(text: string): void {
       emit(text, 'info');

@@ -21,8 +21,8 @@ const MONO_FONT = Platform.select({
 });
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', maxWidth: '100%' },
-  reference: { flexDirection: 'row', flexWrap: 'wrap', flexShrink: 1, alignItems: 'center', columnGap: ROW_GAP },
+  row: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: ROW_GAP },
+  idLine: { flexDirection: 'row', alignItems: 'center', columnGap: ROW_GAP },
   label: { fontSize: REFERENCE_FONT_SIZE },
   id: { fontSize: REFERENCE_FONT_SIZE, fontFamily: MONO_FONT },
   copy: {
@@ -61,22 +61,22 @@ const Reference = ({ traceId, color, actionColor, testID, style }: ReferenceProp
 
   return (
     <View style={[styles.row, style]} testID={testID}>
-      <View style={styles.reference}>
-        <Text style={[styles.label, { color }]}>{t('common.errorReference')}</Text>
+      <Text style={[styles.label, { color }]}>{t('common.errorReference')}</Text>
+      <View style={styles.idLine}>
         <Text selectable style={[styles.id, { color }]} testID={`${testID}-id`}>
           {traceId}
         </Text>
+        <TouchableOpacity
+          accessibilityHint={t('common.copyHint')}
+          accessibilityLabel={copyLabel}
+          accessibilityRole="button"
+          style={styles.copy}
+          testID={`${testID}-copy`}
+          onPress={copy}
+        >
+          <Text style={[styles.copyText, { color: actionColor }]}>{copyLabel}</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        accessibilityHint={t('common.copyHint')}
-        accessibilityLabel={copyLabel}
-        accessibilityRole="button"
-        style={styles.copy}
-        testID={`${testID}-copy`}
-        onPress={copy}
-      >
-        <Text style={[styles.copyText, { color: actionColor }]}>{copyLabel}</Text>
-      </TouchableOpacity>
     </View>
   );
 };

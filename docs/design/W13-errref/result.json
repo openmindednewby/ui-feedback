@@ -1,0 +1,792 @@
+{
+  "countMethod": "visible-in-frame",
+  "pairMethod": "same-steps",
+  "traceIdShown": "4bf92f3577b34da6a3ce929d0e0e4736",
+  "options": {
+    "A": {
+      "items": [
+        "page-icon",
+        "page-title",
+        "page-message",
+        "page-retry",
+        "page-back",
+        "toast-message"
+      ],
+      "inventory": "6/6",
+      "aligned": "pass",
+      "alignedNote": "no side-by-side form row on these screens"
+    },
+    "B": {
+      "items": [
+        "page-icon",
+        "page-title",
+        "page-message",
+        "page-retry",
+        "page-back",
+        "toast-message"
+      ],
+      "inventory": "6/6",
+      "aligned": "pass",
+      "alignedNote": "no side-by-side form row on these screens"
+    },
+    "C": {
+      "items": [
+        "page-icon",
+        "page-title",
+        "page-message",
+        "page-retry",
+        "page-back",
+        "toast-message"
+      ],
+      "inventory": "6/6",
+      "aligned": "pass",
+      "alignedNote": "no side-by-side form row on these screens"
+    }
+  },
+  "frames": [
+    {
+      "option": "A",
+      "shot": "page-360x640",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/A-page-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 185
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "A",
+      "shot": "page-360x640",
+      "side": "after",
+      "build": "live + option A mock",
+      "file": "img/after/A-page-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 185
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "A",
+      "shot": "toast-360x640",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/A-toast-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 326
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "A",
+      "shot": "toast-360x640",
+      "side": "after",
+      "build": "live + option A mock",
+      "file": "img/after/A-toast-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 326
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "A",
+      "shot": "page-1280x800",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/A-page-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 316
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "A",
+      "shot": "page-1280x800",
+      "side": "after",
+      "build": "live + option A mock",
+      "file": "img/after/A-page-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 316
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "A",
+      "shot": "toast-1280x800",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/A-toast-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 406
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "A",
+      "shot": "toast-1280x800",
+      "side": "after",
+      "build": "live + option A mock",
+      "file": "img/after/A-toast-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 406
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "B",
+      "shot": "page-360x640",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/B-page-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 185
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "B",
+      "shot": "page-360x640",
+      "side": "after",
+      "build": "live + option B mock",
+      "file": "img/after/B-page-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 185
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "B",
+      "shot": "toast-360x640",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/B-toast-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 326
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "B",
+      "shot": "toast-360x640",
+      "side": "after",
+      "build": "live + option B mock",
+      "file": "img/after/B-toast-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 326
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "B",
+      "shot": "page-1280x800",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/B-page-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 316
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "B",
+      "shot": "page-1280x800",
+      "side": "after",
+      "build": "live + option B mock",
+      "file": "img/after/B-page-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 316
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "B",
+      "shot": "toast-1280x800",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/B-toast-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 406
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "B",
+      "shot": "toast-1280x800",
+      "side": "after",
+      "build": "live + option B mock",
+      "file": "img/after/B-toast-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 406
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "C",
+      "shot": "page-360x640",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/C-page-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 185
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "C",
+      "shot": "page-360x640",
+      "side": "after",
+      "build": "live + option C mock",
+      "file": "img/after/C-page-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 185
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "C",
+      "shot": "toast-360x640",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/C-toast-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 326
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "C",
+      "shot": "toast-360x640",
+      "side": "after",
+      "build": "live + option C mock",
+      "file": "img/after/C-toast-360x640.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "360x640",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 326
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "C",
+      "shot": "page-1280x800",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/C-page-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 316
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "C",
+      "shot": "page-1280x800",
+      "side": "after",
+      "build": "live + option C mock",
+      "file": "img/after/C-page-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-state-rich-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-error-rich",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 316
+      },
+      "visibleItems": {
+        "before": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ],
+        "after": [
+          "page-icon",
+          "page-title",
+          "page-message",
+          "page-retry",
+          "page-back"
+        ]
+      }
+    },
+    {
+      "option": "C",
+      "shot": "toast-1280x800",
+      "side": "before",
+      "build": "live ui.dloizides.com (ui-feedback 1.18.0)",
+      "file": "img/before/C-toast-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 406
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    },
+    {
+      "option": "C",
+      "shot": "toast-1280x800",
+      "side": "after",
+      "build": "live + option C mock",
+      "file": "img/after/C-toast-1280x800.png",
+      "pair": {
+        "route": "/feedback",
+        "state": "error-toast-shown",
+        "fixture": "ui-showcase-feedback-specimens",
+        "viewport": "1280x800",
+        "scrollAnchor": "showcase-toast-trigger",
+        "crop": "viewport"
+      },
+      "landed": {
+        "path": "/feedback",
+        "anchorTop": 406
+      },
+      "visibleItems": {
+        "before": [
+          "toast-message"
+        ],
+        "after": [
+          "toast-message"
+        ]
+      }
+    }
+  ]
+}

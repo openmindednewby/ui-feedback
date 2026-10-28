@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Error reference placement</title>
+<style>
+:root{--bg:#f6f5f2;--card:#ffffff;--ink:#1c1b19;--ink2:#5b5850;--rule:#dedad2;--accent:#a3281b;--focus:#1f5fbf}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161513;--card:#201f1c;--ink:#efece6;--ink2:#a9a49a;--rule:#38352f;--accent:#e2705f;--focus:#7fb0ff}}
+:root[data-theme="dark"]{--bg:#161513;--card:#201f1c;--ink:#efece6;--ink2:#a9a49a;--rule:#38352f;--accent:#e2705f;--focus:#7fb0ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1180px;margin:0 auto;padding:24px 16px 96px}
+h1{font-size:26px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+.lede{color:var(--ink2);margin:0 0 20px;max-width:70ch}
+.opt{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:16px;margin:0 0 20px}
+.opt h2{font-size:19px;margin:0 0 4px}
+.opt .says{color:var(--ink2);margin:0 0 12px;max-width:70ch}
+.meta{font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;color:var(--ink2);margin:0 0 12px}
+.shot{margin:0 0 14px}
+.shot h3{font-size:14px;margin:0 0 6px;color:var(--ink2);font-weight:600}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pair.mob{max-width:560px}
+figure{margin:0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:6px}
+figcaption{font-size:12px;color:var(--ink2);margin-top:4px}
+figcaption b{color:var(--ink)}
+.q{background:var(--card);border:2px solid var(--accent);border-radius:12px;padding:16px;margin:0 0 24px}
+.q .qn{font-weight:600;margin:0 0 8px}
+.qi{display:inline-block;background:var(--accent);color:var(--card);border-radius:4px;padding:0 6px;margin-right:6px;font-size:13px}
+.opts{list-style:none;padding:0;margin:0 0 8px}
+.opts li{padding:4px 0}
+.lt{display:inline-block;min-width:22px;font-weight:700}
+.why{color:var(--ink2);font-size:14px;margin:0}
+@media (max-width:640px){.pair{grid-template-columns:1fr 1fr;gap:6px}h1{font-size:22px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Where does "Error reference" show?</h1>
+<p class="lede">OBS-1 "Every app ships metrics, logs and alerts", W13-errref. <code>@dloizides/bff-web-client</code> 1.4.0 now carries the trace id on every failed request. Pick where the user sees it. Every option keeps the message, title, icon, Retry and Back to library exactly as they are today. Captures: live <code>ui.dloizides.com/feedback</code> (the shared <code>@dloizides/ui-feedback</code> 1.18.0 render), light mode, Galaxy S5 360x640 and desktop 1280x800; the after adds the option as a mock on the same live frame.</p>
+
+<div class="q"><p class="qn"><span class="qi">Q1</span> Where should the error reference appear?</p>
+<ul class="opts">
+<li><span class="lt">A</span><span>Every error message: full-page error states and error toasts</span></li>
+<li><span class="lt">B</span><span>Full-page error states only; toasts stay as today</span></li>
+<li><span class="lt">C</span><span>Hidden: nothing on screen; support finds it in Grafana by time and user</span></li>
+</ul>
+<p class="why">Short form 4bf92f35 is shown; Copy copies the full 32-character id for support.</p></div>
+
+<section class="opt" data-option="A" data-inventory="6/6" data-aligned="pass" data-result="result.json">
+<h2>A. Every error message</h2>
+<p class="says">Reference under the message on full-page errors, with Copy; a second line in error toasts.</p>
+<p class="meta">Inventory 6/6 visible · no form rows · pairs same-steps</p>
+<div class="shot"><h3>Full-page error, 360x640</h3><div class="pair mob"><figure data-visual="before"><img src="img/before/A-page-360x640.png" alt="Today: error state, no reference" loading="lazy"><figcaption><b>Before</b> today</figcaption></figure><figure data-visual="after"><img src="img/after/A-page-360x640.png" alt="Option A: error state with reference and Copy" loading="lazy"><figcaption><b>After</b> option A</figcaption></figure></div></div>
+<div class="shot"><h3>Error toast, 360x640</h3><div class="pair mob"><figure><img src="img/before/A-toast-360x640.png" alt="Today: error toast" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/A-toast-360x640.png" alt="Option A: error toast with reference line" loading="lazy"><figcaption><b>After</b></figcaption></figure></div></div>
+<div class="shot"><h3>Full-page error, 1280x800</h3><div class="pair"><figure><img src="img/before/A-page-1280x800.png" alt="Today desktop error state" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/A-page-1280x800.png" alt="Option A desktop error state" loading="lazy"><figcaption><b>After</b></figcaption></figure></div></div>
+<div class="shot"><h3>Error toast, 1280x800</h3><div class="pair"><figure><img src="img/before/A-toast-1280x800.png" alt="Today desktop toast" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/A-toast-1280x800.png" alt="Option A desktop toast" loading="lazy"><figcaption><b>After</b></figcaption></figure></div></div>
+</section>
+
+<section class="opt" data-option="B" data-inventory="6/6" data-aligned="pass" data-result="result.json">
+<h2>B. Full-page errors only</h2>
+<p class="says">Reference and Copy on full-page error states; toasts unchanged.</p>
+<p class="meta">Inventory 6/6 visible · no form rows · pairs same-steps</p>
+<div class="shot"><h3>Full-page error, 360x640</h3><div class="pair mob"><figure data-visual="before"><img src="img/before/B-page-360x640.png" alt="Today: error state" loading="lazy"><figcaption><b>Before</b> today</figcaption></figure><figure data-visual="after"><img src="img/after/B-page-360x640.png" alt="Option B: error state with reference" loading="lazy"><figcaption><b>After</b> option B</figcaption></figure></div></div>
+<div class="shot"><h3>Error toast, 360x640</h3><div class="pair mob"><figure><img src="img/before/B-toast-360x640.png" alt="Today: error toast" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/B-toast-360x640.png" alt="Option B: toast unchanged" loading="lazy"><figcaption><b>After</b> (unchanged)</figcaption></figure></div></div>
+<div class="shot"><h3>Full-page error, 1280x800</h3><div class="pair"><figure><img src="img/before/B-page-1280x800.png" alt="Today desktop" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/B-page-1280x800.png" alt="Option B desktop" loading="lazy"><figcaption><b>After</b></figcaption></figure></div></div>
+<div class="shot"><h3>Error toast, 1280x800</h3><div class="pair"><figure><img src="img/before/B-toast-1280x800.png" alt="Today desktop toast" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/B-toast-1280x800.png" alt="Option B desktop toast unchanged" loading="lazy"><figcaption><b>After</b> (unchanged)</figcaption></figure></div></div>
+</section>
+
+<section class="opt" data-option="C" data-inventory="6/6" data-aligned="pass" data-result="result.json">
+<h2>C. Hidden</h2>
+<p class="says">No visible change. The id stays in the browser error log and Grafana; support searches by time and account.</p>
+<p class="meta">Inventory 6/6 visible · no form rows · pairs same-steps</p>
+<div class="shot"><h3>Full-page error, 360x640</h3><div class="pair mob"><figure data-visual="before"><img src="img/before/C-page-360x640.png" alt="Today: error state" loading="lazy"><figcaption><b>Before</b> today</figcaption></figure><figure data-visual="after"><img src="img/after/C-page-360x640.png" alt="Option C: unchanged" loading="lazy"><figcaption><b>After</b> option C (unchanged)</figcaption></figure></div></div>
+<div class="shot"><h3>Error toast, 360x640</h3><div class="pair mob"><figure><img src="img/before/C-toast-360x640.png" alt="Today toast" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/C-toast-360x640.png" alt="Option C toast unchanged" loading="lazy"><figcaption><b>After</b> (unchanged)</figcaption></figure></div></div>
+<div class="shot"><h3>Full-page error, 1280x800</h3><div class="pair"><figure><img src="img/before/C-page-1280x800.png" alt="Today desktop" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/C-page-1280x800.png" alt="Option C desktop unchanged" loading="lazy"><figcaption><b>After</b> (unchanged)</figcaption></figure></div></div>
+<div class="shot"><h3>Error toast, 1280x800</h3><div class="pair"><figure><img src="img/before/C-toast-1280x800.png" alt="Today desktop toast" loading="lazy"><figcaption><b>Before</b></figcaption></figure><figure><img src="img/after/C-toast-1280x800.png" alt="Option C desktop toast unchanged" loading="lazy"><figcaption><b>After</b> (unchanged)</figcaption></figure></div></div>
+</section>
+</main>
+</body>
+</html>

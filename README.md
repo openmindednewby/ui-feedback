@@ -98,6 +98,7 @@ export const toastBus = createToastBus();
 // anywhere — no provider needed:
 useMutation({ onSuccess: () => toastBus.success(FM('menu.saved')) });
 toastBus.error(FM('menu.saveFailed'));
+toastBus.warning(FM('menu.needsReview'));
 toastBus.emit(FM('menu.queued'), 'info');   // explicit type; defaults to 'info'
 ```
 

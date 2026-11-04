@@ -58,7 +58,7 @@ const ZERO_WIDTH_START = 0x200b;
 const ZERO_WIDTH_END = 0x200f;
 const BYTE_ORDER_MARK = 0xfeff;
 
-export type ToastType = 'success' | 'info' | 'error';
+export type ToastType = 'success' | 'info' | 'error' | 'warning';
 
 /** What the app pushes through the `subscribe` port. */
 export interface ToastInput {
@@ -223,6 +223,7 @@ export const ToastHost = ({
       success: resolveToastTone(theme, 'success'),
       error: resolveToastTone(theme, 'error'),
       info: resolveToastTone(theme, 'info'),
+      warning: resolveToastTone(theme, 'warning'),
     }),
     [theme],
   );

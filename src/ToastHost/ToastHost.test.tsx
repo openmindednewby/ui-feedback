@@ -83,6 +83,19 @@ describe('ToastHost', () => {
     expect(toast.getAttribute('aria-live')).toBe('polite');
   });
 
+  it('with a warning toast, fills it from the warning scale and announces it politely', () => {
+    const warningTheme: UiTheme = { ...theme, semantic: { ...theme.semantic, warning: { '500': '#d97706' } } };
+    const bus = makeBus();
+    render(<UiProvider theme={warningTheme} t={t}><ToastHost subscribe={bus.subscribe} /></UiProvider>);
+
+    act(() => bus.emit({ text: 'Needs review', type: 'warning' }));
+
+    const toast = screen.getByTestId('notification-toast');
+    expect(toast.style.backgroundColor).toBe('rgb(217, 119, 6)');
+    expect(toast.getAttribute('role')).toBe('status');
+    expect(toast.getAttribute('aria-live')).toBe('polite');
+  });
+
   it('announces an error toast as an assertive alert live region', () => {
     const bus = makeBus();
     renderWithUi(<ToastHost subscribe={bus.subscribe} />);

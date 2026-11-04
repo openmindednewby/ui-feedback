@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.20.0
+
+- `ToastHost`: new toast type `warning` (AML-TOAST-1 "Manual screening banner colour follows the result"), filled from `theme.semantic.warning` with an ink at 4.5:1 or better and its own glyph (▲), announced politely like success and info. A theme without a `warning` scale uses the `info` colours, never `error`.
+- `createToastBus`: new `warning(text)`.
+
 ## 1.19.0
 
 - Error reference (OBS-1 "Every app ships metrics, production-grade logs and alerts with working links", D-OBS-23 option A): `ErrorState` takes `error` and `AsyncSurface` passes its new `error` prop through; when the error carries a `traceId` (`@dloizides/bff-web-client` >= 1.4.0) a row "Error reference: <id>" + Copy (56x48 hit box, Copied / Copy failed for 1.5 s) sits below Retry / Back. Hidden without an id, so existing callers render the same tree.

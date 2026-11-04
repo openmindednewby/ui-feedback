@@ -53,12 +53,42 @@ describe('resolveToastTone', () => {
     expect(tone.fill).toBe('#005f73');
   });
 
-  it('for success, error and info, returns three different glyphs', () => {
+  it('for success, error, info and warning, returns four different glyphs', () => {
     const theme = themeWith({ error: { '500': '#ae2012' }, success: { '500': '#16a34a' } }, { '500': '#005f73' });
 
-    const glyphs = new Set(['success', 'error', 'info'].map((type) => resolveToastTone(theme, type as 'success').glyph));
+    const glyphs = new Set(['success', 'error', 'info', 'warning'].map((type) => resolveToastTone(theme, type as 'success').glyph));
 
-    expect(glyphs.size).toBe(3);
+    expect(glyphs.size).toBe(4);
+  });
+
+  it('for warning with a warning scale, fills from it with an ink at 4.5:1 or better', () => {
+    const theme = themeWith({ error: { '500': '#ae2012' }, warning: { '500': '#d97706' } }, { '500': '#005f73' });
+
+    const tone = resolveToastTone(theme, 'warning');
+
+    expect(tone.fill).toBe('#d97706');
+    expect(contrastRatio(tone.ink, tone.fill)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('for warning with no warning scale, uses the info fill, ink and border, never the error scale', () => {
+    const theme = themeWith({ error: { '500': '#ae2012' } }, { '500': '#005f73' });
+
+    const tone = resolveToastTone(theme, 'warning');
+    const info = resolveToastTone(theme, 'info');
+
+    expect(tone.fill).toBe('#005f73');
+    expect({ fill: tone.fill, ink: tone.ink, border: tone.border }).toEqual({ fill: info.fill, ink: info.ink, border: info.border });
+  });
+
+  it('with a warning scale present, leaves the success, error and info fills unchanged', () => {
+    const theme = themeWith(
+      { error: { '500': '#ae2012' }, success: { '500': '#16a34a' }, warning: { '500': '#d97706' } },
+      { '500': '#005f73' },
+    );
+
+    const fills = ['success', 'error', 'info'].map((type) => resolveToastTone(theme, type as 'success').fill);
+
+    expect(fills).toEqual(['#16a34a', '#ae2012', '#005f73']);
   });
 });
 

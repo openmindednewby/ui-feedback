@@ -14,6 +14,7 @@ const GLYPHS: Record<ToastType, string> = {
   success: '✓',
   error: '!',
   info: 'i',
+  warning: '▲',
 };
 
 export interface ToastTone {
@@ -26,6 +27,7 @@ export interface ToastTone {
 function scaleFor(theme: FeedbackTheme, type: ToastType): FeedbackColorScale {
   if (type === 'error') return theme.semantic.error;
   if (type === 'success') return theme.semantic.success ?? theme.palette.primary;
+  if (type === 'warning') return theme.semantic.warning ?? theme.palette.primary;
   return theme.palette.primary;
 }
 

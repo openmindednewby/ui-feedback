@@ -50,6 +50,16 @@ describe('createToastBus', () => {
     ]);
   });
 
+  it('warning helper, delivers a warning toast', () => {
+    const bus = createToastBus();
+    const a = collector();
+    bus.subscribe(a.push);
+
+    bus.warning('needs review');
+
+    expect(a.seen).toEqual([{ text: 'needs review', type: 'warning' }]);
+  });
+
   it('fans a single emit out to EVERY subscriber', () => {
     const bus = createToastBus();
     const a = collector();

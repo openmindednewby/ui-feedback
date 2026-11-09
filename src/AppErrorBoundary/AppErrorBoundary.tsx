@@ -26,6 +26,7 @@ import { FEEDBACK_TEST_IDS } from '../constants';
 
 /** What the `fallback` render-prop receives. */
 export interface ErrorFallbackState {
+  renderDefault: (logo?: ReactNode) => ReactNode;
   /** The caught error, or `null` before anything has been caught. */
   error: Error | null;
   /** True while the caller's `recover` is handling the error. */
@@ -142,14 +143,27 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
   };
 
   public render(): ReactNode {
-    const { children, fallback, labels, labelsFor, showDetails, onReload } = this.props;
+    const { children, fallback } = this.props;
     const { hasError, error, recovering } = this.state;
-    const testIDPrefix = this.props.testIDPrefix ?? FEEDBACK_TEST_IDS.errorBoundary;
-    const resolvedLabels: ErrorBoundaryLabels = resolveLabels(labels, labelsFor, error);
 
     if (!hasError) return children;
 
-    if (typeof fallback === 'function') return fallback({ error, recovering, retry: this.handleRetry });
+    if (typeof fallback === 'function')
+      return fallback({
+        error,
+        recovering,
+        retry: this.handleRetry,
+        renderDefault: (logo) => this.renderDefaultFallback(logo),
+      });
+
+    return this.renderDefaultFallback();
+  }
+
+  private renderDefaultFallback(logo?: ReactNode): ReactNode {
+    const { labels, labelsFor, showDetails, onReload } = this.props;
+    const { error, recovering } = this.state;
+    const testIDPrefix = this.props.testIDPrefix ?? FEEDBACK_TEST_IDS.errorBoundary;
+    const resolvedLabels: ErrorBoundaryLabels = resolveLabels(labels, labelsFor, error);
 
     if (recovering)
       return (
@@ -160,6 +174,7 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
       <ErrorBoundaryFallback
         error={error}
         labels={resolvedLabels}
+        logo={logo}
         reloadIsPrimary={this.props.reloadIsPrimary === true}
         showDetails={resolveShowDetails(showDetails, error)}
         showRetry={resolveRetryable(this.props.retryable, error)}

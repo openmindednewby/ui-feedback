@@ -53,6 +53,10 @@ const styles = StyleSheet.create({
     maxWidth: CONTENT_MAX_WIDTH,
     alignItems: 'center',
   },
+  logo: {
+    alignItems: 'center',
+    marginBottom: TITLE_MARGIN_BOTTOM,
+  },
   title: {
     fontSize: TITLE_FONT_SIZE,
     fontWeight: 'bold',
@@ -102,6 +106,7 @@ export interface ErrorBoundaryFallbackProps {
   reloadIsPrimary: boolean;
   onRetry: () => void;
   onReload?: () => void;
+  logo?: React.ReactNode;
 }
 
 // ---------------------------------------------------------------------------
@@ -117,6 +122,7 @@ export const ErrorBoundaryFallback = ({
   reloadIsPrimary,
   onRetry,
   onReload,
+  logo,
 }: ErrorBoundaryFallbackProps): React.ReactElement => {
   const { theme } = useFeedbackUi();
   const warningColor = (theme.semantic.warning ?? theme.semantic.error)['500'];
@@ -169,6 +175,11 @@ export const ErrorBoundaryFallback = ({
       testID={testIDPrefix}
     >
       <View style={styles.content}>
+        {logo !== undefined ? (
+          <View style={styles.logo} testID={`${testIDPrefix}-logo`}>
+            {logo}
+          </View>
+        ) : null}
         <Text style={[styles.title, { color: theme.colors.text }]}>{labels.title}</Text>
 
         <ErrorState message={labels.message} testID={`${testIDPrefix}-message`} />

@@ -8,7 +8,7 @@ import { RunCardButton } from './RunCardButton';
 import { RunGroupChips, RunGroupSummary } from './RunGroupChips';
 import { RunStepBars } from './RunStepBars';
 import { defaultGroupId, progressPercent } from './runGroups';
-import { runToneColor } from './runTone';
+import { runToneColor, runToneTextColor } from './runTone';
 
 import type { LiveRunCardProps } from './types';
 
@@ -39,6 +39,7 @@ export function LiveRunCard(props: LiveRunCardProps): React.ReactElement {
   const selectedId = groups.some((g) => g.id === picked) ? picked : defaultGroupId(groups);
   const selected = groups.find((g) => g.id === selectedId);
   const tone = runToneColor(theme, status);
+  const toneText = runToneTextColor(theme, status);
   const percent = progressPercent(progress);
   const showTimings = !compact || open;
   const muted = { color: theme.colors.textSecondary };
@@ -47,14 +48,14 @@ export function LiveRunCard(props: LiveRunCardProps): React.ReactElement {
     <View style={[styles.card, { borderColor: tone, backgroundColor: theme.colors.surface }]} testID={testID}>
       <View style={styles.head}>
         <View style={[styles.pill, { borderColor: tone }]}>
-          <Text style={[styles.pillText, { color: tone }]} testID={`${testID}-status`}>{labels.status}</Text>
+          <Text style={[styles.pillText, { color: toneText }]} testID={`${testID}-status`}>{labels.status}</Text>
         </View>
         <View style={styles.titleBox}>
           <Text style={[styles.title, { color: theme.colors.text }]} testID={`${testID}-title`}>{title}</Text>
           <Text style={[styles.meta, muted]} testID={`${testID}-meta`}>{labels.meta}</Text>
         </View>
         {onCancel !== undefined ? (
-          <RunCardButton label={labels.cancel} hint={labels.cancelHint} color={theme.semantic.error['500']} onPress={onCancel} disabled={cancelDisabled} testID={`${testID}-cancel`} />
+          <RunCardButton label={labels.cancel} hint={labels.cancelHint} color={theme.semanticText?.error ?? theme.semantic.error['500']} onPress={onCancel} disabled={cancelDisabled} testID={`${testID}-cancel`} />
         ) : null}
       </View>
       {currentStep !== null && currentStep !== '' ? (

@@ -13,3 +13,14 @@ export function runToneColor(theme: FeedbackTheme, state: RunStepState): string 
   if (state === 'done') return scale(theme, 'success') ?? theme.colors.text;
   return theme.colors.textSecondary;
 }
+
+/** The readable text colour for a state: the theme's semantic text when set, else the fill tone. */
+export function runToneTextColor(theme: FeedbackTheme, state: RunStepState): string {
+  const inks: Record<RunStepState, string | undefined> = {
+    failed: theme.semanticText?.error,
+    running: theme.semanticText?.warning,
+    done: theme.semanticText?.success,
+    pending: undefined,
+  };
+  return inks[state] ?? runToneColor(theme, state);
+}

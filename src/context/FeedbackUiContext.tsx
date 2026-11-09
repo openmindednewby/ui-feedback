@@ -32,10 +32,19 @@ export interface FeedbackThemeSemantic {
   [name: string]: FeedbackColorScale;
 }
 
+/** Text colours readable on the mode's surfaces; `semantic` stays the fill. */
+export interface FeedbackThemeSemanticText {
+  success: string;
+  warning: string;
+  error: string;
+  info: string;
+}
+
 export interface FeedbackTheme {
   colors: FeedbackThemeColors;
   palette: FeedbackThemePalette;
   semantic: FeedbackThemeSemantic;
+  semanticText?: FeedbackThemeSemanticText;
 }
 
 /** Translate function — mirrors the apps' `FM(key, p1?, p2?, p3?)` helper. */

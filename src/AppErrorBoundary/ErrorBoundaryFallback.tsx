@@ -126,6 +126,7 @@ export const ErrorBoundaryFallback = ({
 }: ErrorBoundaryFallbackProps): React.ReactElement => {
   const { theme } = useFeedbackUi();
   const warningColor = (theme.semantic.warning ?? theme.semantic.error)['500'];
+  const warningText = theme.semanticText?.warning ?? warningColor;
   const primaryColor = theme.palette.primary['500'];
   const hasDetails = showDetails && error !== null;
 
@@ -189,7 +190,7 @@ export const ErrorBoundaryFallback = ({
             style={[styles.details, { backgroundColor: theme.colors.surface, borderColor: warningColor }]}
             testID={`${testIDPrefix}-details`}
           >
-            <Text style={[styles.detailsTitle, { color: warningColor }]}>{labels.errorDetails}</Text>
+            <Text style={[styles.detailsTitle, { color: warningText }]}>{labels.errorDetails}</Text>
             <Text style={[styles.detailsText, { color: theme.colors.textSecondary }]}>{error.message}</Text>
           </View>
         ) : null}

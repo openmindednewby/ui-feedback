@@ -119,7 +119,7 @@ export const ErrorState = ({
   const hasTitle = typeof title === 'string' && title !== '';
   const hasIcon = icon !== undefined && icon !== null;
   // Under a heading the message is body copy; alone it stays error-coloured as before.
-  const messageColor = hasTitle ? theme.colors.textSecondary : errorColor;
+  const messageColor = hasTitle ? theme.colors.textSecondary : (theme.semanticText?.error ?? errorColor);
 
   const retry =
     typeof onRetry === 'function' ? (

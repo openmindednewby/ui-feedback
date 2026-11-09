@@ -6,7 +6,7 @@ import { MIN_TOUCH_TARGET_PX } from '@dloizides/a11y';
 
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { summariseDoneGroups } from './runGroups';
-import { runToneColor } from './runTone';
+import { runToneColor, runToneTextColor } from './runTone';
 
 import type { RunGroup, RunStepState } from './runGroups';
 import type { LiveRunCardLabels } from './types';
@@ -41,10 +41,11 @@ export function RunGroupChips({ groups, labels, testID, selectedId = null, onSel
     <View style={styles.row} testID={testID}>
       {groups.map((group) => {
         const color = runToneColor(theme, group.state);
+        const ink = runToneTextColor(theme, group.state);
         const selected = group.id === selectedId;
         const a11y = labels.groupA11y(group.label, group.state, labels.formatDuration(group.durationSec));
         const body = (
-          <Text style={[styles.text, { color }, selected || group.state === 'running' ? styles.strong : null]}>
+          <Text style={[styles.text, { color: ink }, selected || group.state === 'running' ? styles.strong : null]}>
             {chipText(group, labels)}
           </Text>
         );
@@ -86,7 +87,7 @@ export function RunGroupSummary({ groups, labels, testID }: ChipsProps): React.R
     <View style={styles.row} testID={testID}>
       {done.count > 0 ? (
         <View style={[styles.chip, styles.still, { borderColor: doneColor }]} accessible accessibilityLabel={doneText} testID={`${testID}-done`}>
-          <Text style={[styles.text, { color: doneColor }]}>{`${MARK.done} ${doneText}`}</Text>
+          <Text style={[styles.text, { color: runToneTextColor(theme, 'done') }]}>{`${MARK.done} ${doneText}`}</Text>
         </View>
       ) : null}
       <RunGroupChips groups={open} labels={labels} testID={`${testID}-open`} />

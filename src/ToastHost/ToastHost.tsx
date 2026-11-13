@@ -24,6 +24,7 @@ import { Z_INDEX } from '@dloizides/design-tokens';
 import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { FEEDBACK_TEST_IDS } from '../constants';
 import { ErrorReferenceRow } from '../ErrorReference/ErrorReferenceRow';
+import { ToastAction, type ToastActionSpec } from './ToastAction';
 import { resolveToastTone, toastTop, type ToastTone } from './toastTone';
 
 const IS_WEB = Platform.OS === 'web';
@@ -66,6 +67,7 @@ export interface ToastInput {
   type?: ToastType;
   /** Trace id of the failed request; an error toast shows it as "Error reference" + Copy. */
   traceId?: string;
+  action?: ToastActionSpec;
 }
 
 interface ToastMessage extends ToastInput {
@@ -179,6 +181,7 @@ const ToastItem = ({ message, onDone, tone, durationMs, fadeMs, testID }: ToastI
         <Text style={[styles.text, { color: tone.ink }]}>{message.text}</Text>
         <ErrorReferenceRow actionColor={tone.ink} color={tone.ink} testID={`${testID}-reference`} traceId={message.traceId} />
       </View>
+      {message.action ? <ToastAction action={message.action} color={tone.ink} testID={`${testID}-action`} onDismiss={handleDone} /> : null}
     </Animated.View>
   );
 };
@@ -230,7 +233,7 @@ export const ToastHost = ({
 
   const push = useCallback(
     (toast: ToastInput): void => {
-      setMessages((s) => [...s, { id: nextId(), type: toast.type, text: sanitizeToastText(toast.text, maxLength), traceId: toast.traceId }]);
+      setMessages((s) => [...s, { id: nextId(), type: toast.type, text: sanitizeToastText(toast.text, maxLength), traceId: toast.traceId, action: toast.action }]);
     },
     [maxLength],
   );

@@ -44,6 +44,7 @@ export interface ToastBus {
   info(text: string): void;
   /** Emit a warning toast. */
   warning(text: string): void;
+  show(toast: ToastInput): void;
 }
 
 const DEFAULT_TOAST_TYPE: ToastType = 'info';
@@ -71,6 +72,7 @@ export function createToastBus(): ToastBus {
       };
     },
     emit,
+    show: push,
     success(text: string): void {
       emit(text, 'success');
     },

@@ -62,6 +62,7 @@ export type { ConfirmDialogProps } from './ConfirmDialog/ConfirmDialog';
 
 export { ToastHost } from './ToastHost/ToastHost';
 export type { ToastHostProps, ToastInput, ToastType } from './ToastHost/ToastHost';
+export type { ToastActionSpec } from './ToastHost/ToastAction';
 
 // Cold-start "warming up…" overlay (Move 3a)
 export { WarmingOverlay } from './Warming/WarmingOverlay';

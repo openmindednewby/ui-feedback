@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.23.0
+
+- `ToastHost`: `ToastInput.action` (`{ label, hint?, onPress }`, LINKS-1 "Shared short-link service" Undo after delete) renders a 44x44 button (testID `<toastTestID>-action`, accessibilityLabel = label, hint defaults to label); pressing it runs `onPress` and dismisses the toast. Without `action` the toast is unchanged.
+- `createToastBus`: new `show(toast)` emits a full `ToastInput` (e.g. one with an action).
+- New type export `ToastActionSpec`.
+
 ## 1.20.0
 
 - `ToastHost`: new toast type `warning` (AML-TOAST-1 "Manual screening banner colour follows the result"), filled from `theme.semantic.warning` with an ink at 4.5:1 or better and its own glyph (▲), announced politely like success and info. A theme without a `warning` scale uses the `info` colours, never `error`.

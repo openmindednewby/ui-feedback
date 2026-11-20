@@ -103,3 +103,5 @@ export type { ProgressBarProps } from './ProgressBar/ProgressBar';
 export { clampPercent } from './ProgressBar/clampPercent';
 
 export * from './LiveRunCard';
+
+export * from './LocalModelGate';

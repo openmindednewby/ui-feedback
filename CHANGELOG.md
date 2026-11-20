@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- `LocalModelGate` + `useLocalModel(model)`: shows its children once a `@dloizides/text-generation` local model is ready, else the offer, download percent, failure retry or blocked reason; labels, test ids and the card/text/button slots come from the app.
+
 ## 1.23.0
 
 - `ToastHost`: `ToastInput.action` (`{ label, hint?, onPress }`, LINKS-1 "Shared short-link service" Undo after delete) renders a 44x44 button (testID `<toastTestID>-action`, accessibilityLabel = label, hint defaults to label); pressing it runs `onPress` and dismisses the toast. Without `action` the toast is unchanged.

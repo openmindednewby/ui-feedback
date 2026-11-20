@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.26.0
+
+- `LocalModelGate` + `useLocalModel(model)` (INV-EXTRACT-1 W9): shows its children once a `@dloizides/text-generation` local model is ready, else the offer, download percent, failure retry or blocked reason; labels, test ids and the card/text/button slots come from the app.
+
 ## 1.24.0
 
 - `UiThemeOverride({ map, children })` (INV-EXTRACT-1 W4, D-EXTRACT-2): re-provides the surrounding UI context with its theme passed through `map`; translate and navigate are kept. Generic over the host's theme type. Showcase story `src/showcase/UiThemeOverride.showcase.tsx`.

@@ -36,6 +36,9 @@ export type {
   FeedbackUiProviderProps as UiProviderProps,
 } from './context/FeedbackUiContext';
 
+export { UiThemeOverride } from './UiThemeOverride';
+export type { UiThemeOverrideProps } from './UiThemeOverride';
+
 // Shared constants
 export { MODAL_OVERLAY_COLOR, DISABLED_OPACITY, FEEDBACK_TEST_IDS } from './constants';
 

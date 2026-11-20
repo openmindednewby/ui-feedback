@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.24.0
+
+- `UiThemeOverride({ map, children })` (INV-EXTRACT-1 W4, D-EXTRACT-2): re-provides the surrounding UI context with its theme passed through `map`; translate and navigate are kept. Generic over the host's theme type. Showcase story `src/showcase/UiThemeOverride.showcase.tsx`.
+
 ## 1.23.0
 
 - `ToastHost`: `ToastInput.action` (`{ label, hint?, onPress }`, LINKS-1 "Shared short-link service" Undo after delete) renders a 44x44 button (testID `<toastTestID>-action`, accessibilityLabel = label, hint defaults to label); pressing it runs `onPress` and dismisses the toast. Without `action` the toast is unchanged.

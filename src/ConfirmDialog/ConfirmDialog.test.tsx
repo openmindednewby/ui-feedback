@@ -14,6 +14,18 @@ const renderDialog = (onCancel = jest.fn()): jest.Mock => {
   return onCancel;
 };
 
+const OPENER_ID = 'dialog-opener';
+
+const renderDialogOverOpener = (): HTMLElement => {
+  render(
+    <>
+      <button data-testid={OPENER_ID} type="button">open</button>
+      <ConfirmDialog visible message="Payments stop until you reconnect." title={TITLE} onCancel={jest.fn()} onConfirm={jest.fn()} />
+    </>
+  );
+  return screen.getByTestId(OPENER_ID);
+};
+
 const flushModalAnimation = (): void => {
   act(() => {
     document.querySelectorAll('*').forEach((node) => fireEvent.animationEnd(node));
@@ -55,5 +67,23 @@ describe('ConfirmDialog', () => {
     fireEvent.keyUp(document, { key: 'Escape' });
 
     expect(onCancel).toHaveBeenCalledTimes(1);
+  });
+
+  it('when it opens over a focused opener, moves focus into the dialog', () => {
+    const opener = renderDialogOverOpener();
+    opener.focus();
+
+    flushModalAnimation();
+
+    expect(screen.getByTestId(FEEDBACK_TEST_IDS.confirmDialog)).toContainElement(document.activeElement as HTMLElement);
+  });
+
+  it('when focus moves to a control behind the open dialog, pulls focus back inside', () => {
+    const opener = renderDialogOverOpener();
+    flushModalAnimation();
+
+    act(() => opener.focus());
+
+    expect(screen.getByTestId(FEEDBACK_TEST_IDS.confirmDialog)).toContainElement(document.activeElement as HTMLElement);
   });
 });

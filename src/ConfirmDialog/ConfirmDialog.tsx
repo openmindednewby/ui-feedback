@@ -17,6 +17,7 @@ import { useFeedbackUi } from '../context/FeedbackUiContext';
 import { DISABLED_OPACITY, MIN_TOUCH_TARGET, MODAL_OVERLAY_COLOR, FEEDBACK_TEST_IDS } from '../constants';
 
 import { confirmFill, confirmInk } from './confirmDialogColors';
+import { dialogRingColor, useDialogFocusRing } from './dialogFocusRing';
 
 const DIALOG_MAX_WIDTH = 400;
 
@@ -101,6 +102,8 @@ export const ConfirmDialog = ({
   const { theme, t } = useFeedbackUi();
   const titleId = useId();
   const innerDialogRole = Platform.OS === 'web' ? undefined : 'dialog';
+  const cancelRing = useDialogFocusRing(dialogRingColor(theme));
+  const confirmRing = useDialogFocusRing(dialogRingColor(theme));
 
   const colorStyles = useMemo(
     () => ({
@@ -150,8 +153,11 @@ export const ConfirmDialog = ({
                 styles.button,
                 styles.cancelButton,
                 colorStyles.cancelButton,
+                cancelRing.ringStyle,
               ]}
               testID={FEEDBACK_TEST_IDS.cancelConfirmButton}
+              onBlur={cancelRing.onBlur}
+              onFocus={cancelRing.onFocus}
               onPress={onCancel}
             >
               <Text style={[styles.buttonText, colorStyles.cancelButtonText]}>
@@ -170,8 +176,11 @@ export const ConfirmDialog = ({
                 styles.confirmButton,
                 colorStyles.confirmButton,
                 isConfirmDisabled && styles.disabledButton,
+                confirmRing.ringStyle,
               ]}
               testID={FEEDBACK_TEST_IDS.confirmButton}
+              onBlur={confirmRing.onBlur}
+              onFocus={confirmRing.onFocus}
               onPress={onConfirm}
             >
               {loading ? (

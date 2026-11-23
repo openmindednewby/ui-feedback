@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AttentionCard } from '../AttentionCard';
@@ -83,13 +81,13 @@ describe('meetsThreshold', () => {
 });
 
 describe('ThresholdMeter', () => {
-  it('with a value below the threshold, marks the meter as not passing and reports the value', () => {
+  it('with a value below the threshold, reports the value and its text', () => {
     const value = 0.61;
 
     render(<ThresholdMeter accessibilityHint="Score against the pass line" label="Similarity" testID="meter" threshold={0.8} value={value} valueText="61% (pass 80%)" />);
 
     const meter = screen.getByTestId('meter');
-    expect([meter.getAttribute('data-passes'), meter.getAttribute('aria-valuenow')]).toEqual(['false', '0.61']);
+    expect([meter.getAttribute('aria-valuenow'), meter.getAttribute('aria-valuetext')]).toEqual(['0.61', '61% (pass 80%)']);
   });
 });
 

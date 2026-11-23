@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.27.0
+
+- `CheckStatus({ title, detail?, status?, variant: tile|row, onPress?, accessibilityLabel, accessibilityHint, testID? })`: one check as a tile or a row; the status pill is a slot; pressable when `onPress` is set (44 px min height).
+- `CheckPipeline({ items, breakpoint?, ... })`: checks as equal tiles in one row at or above `breakpoint` (default 768), one row per check below; `pipelineVariant(width, breakpoint)` exported.
+- `ThresholdMeter({ value, threshold, max?, lowerPasses?, label, valueText, accessibilityHint, testID? })`: score fill against a threshold mark, success or error tone from the theme; role meter. `meterPercent`, `meetsThreshold` exported.
+- `AttentionCard({ title, heading?, status?, message, evidence?, action?, testID? })`: the one item that needs a person first, with slots for status, evidence and the next action.
+
 ## 1.26.0
 
 - `LocalModelGate` + `useLocalModel(model)` (INV-EXTRACT-1 W9): shows its children once a `@dloizides/text-generation` local model is ready, else the offer, download percent, failure retry or blocked reason; labels, test ids and the card/text/button slots come from the app.

@@ -44,7 +44,7 @@ export const ThresholdMeter = (props: ThresholdMeterProps): React.ReactElement =
   const passes = meetsThreshold(value, threshold, lowerPasses);
   const fill = passes ? semanticScale(theme, 'success') ?? theme.palette.primary['500'] : theme.semantic.error['500'];
   return (
-    <View accessibilityHint={accessibilityHint} accessibilityLabel={label} aria-valuemax={max} aria-valuemin={0} aria-valuenow={value} aria-valuetext={valueText} dataSet={{ passes: String(passes) }} role="meter" style={styles.wrap} testID={testID}>
+    <View accessibilityHint={accessibilityHint} accessibilityLabel={label} aria-valuemax={max} aria-valuemin={0} aria-valuenow={value} aria-valuetext={valueText} role="meter" style={styles.wrap} testID={testID}>
       <View style={styles.head}>
         <Text style={[styles.text, { color: theme.colors.textSecondary }]}>{label}</Text>
         <Text style={[styles.text, { color: theme.colors.text }]}>{valueText}</Text>

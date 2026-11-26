@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { AttentionCard } from '../AttentionCard';
 import { meetsThreshold, meterPercent, ThresholdMeter } from '../ThresholdMeter';
 import { CheckStatus } from './CheckStatus';
-import { pipelineVariant, PIPELINE_COLLAPSE_BREAKPOINT } from './pipelineVariant';
+import { pipelineItemVariant, pipelineVariant, PIPELINE_COLLAPSE_BREAKPOINT } from './pipelineVariant';
 
 const TEST_ID = 'check';
 
@@ -98,5 +98,15 @@ describe('AttentionCard', () => {
     render(<AttentionCard message={message} testID="attention" title="Needs a person" />);
 
     expect(screen.queryByTestId('attention-head')).toBeNull();
+  });
+});
+
+describe('pipelineItemVariant', () => {
+  it('on a phone with two columns, keeps tiles; with one column, rows; on a computer, tiles', () => {
+    const phone = PIPELINE_COLLAPSE_BREAKPOINT - 1;
+
+    const variants = [pipelineItemVariant(phone, undefined, 2), pipelineItemVariant(phone), pipelineItemVariant(PIPELINE_COLLAPSE_BREAKPOINT, undefined, 2)];
+
+    expect(variants).toEqual(['tile', 'row', 'tile']);
   });
 });

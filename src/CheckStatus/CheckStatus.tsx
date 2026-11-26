@@ -16,6 +16,7 @@ const DETAIL_FONT = 12;
 const styles = StyleSheet.create({
   detail: { fontSize: DETAIL_FONT },
   row: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' },
+  statusUnder: { alignSelf: 'flex-start' },
   tile: { flexBasis: 0, flexGrow: 1, minWidth: 0 },
   title: { fontSize: TITLE_FONT, fontWeight: '600' },
   words: { flexShrink: 1, gap: 2 },
@@ -27,24 +28,26 @@ export interface CheckStatusProps {
   detail?: string;
   status?: React.ReactNode;
   variant?: CheckStatusVariant;
+  statusUnderTitleEnabled?: boolean;
   onPress?: () => void;
   accessibilityLabel: string;
   accessibilityHint: string;
   testID?: string;
 }
 
-/** One check as a tile (equal share of a row) or a row (title left, status right); pressing it opens the check. */
+/** One check as a tile (equal share of a row) or a row (title left, status right, or under the title); pressing opens it. */
 export const CheckStatus = (props: CheckStatusProps): React.ReactElement => {
-  const { title, detail, status, variant = 'tile', onPress, accessibilityLabel, accessibilityHint, testID } = props;
+  const { title, detail, status, variant = 'tile', statusUnderTitleEnabled = false, onPress, accessibilityLabel, accessibilityHint, testID } = props;
   const { theme } = useFeedbackUi();
   const style = [styles.wrap, variant === 'tile' ? styles.tile : styles.row, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }];
   const body = (
     <>
       <View style={styles.words}>
         <Text style={[styles.title, { color: theme.colors.text }]}>{title}</Text>
+        {statusUnderTitleEnabled ? <View style={styles.statusUnder}>{status}</View> : null}
         {detail === undefined ? null : <Text style={[styles.detail, { color: theme.colors.textSecondary }]}>{detail}</Text>}
       </View>
-      {status}
+      {statusUnderTitleEnabled ? null : status}
     </>
   );
   if (onPress === undefined) {

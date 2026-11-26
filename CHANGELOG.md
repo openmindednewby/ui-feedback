@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.28.0
+
+- `CheckPipeline` `phoneColumns?`: below the breakpoint the checks become a tile grid of that many columns (default 1 = one row per check). `statusUnderTitleEnabled?` puts each status pill under the check name. `CheckStatus` gains `statusUnderTitleEnabled?`; `pipelineItemVariant(width, breakpoint, phoneColumns)` exported.
+
 ## 1.27.0
 
 - `CheckStatus({ title, detail?, status?, variant: tile|row, onPress?, accessibilityLabel, accessibilityHint, testID? })`: one check as a tile or a row; the status pill is a slot; pressable when `onPress` is set (44 px min height).

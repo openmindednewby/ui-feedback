@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.29.0
+
+- `SkeletonLines({ lines, ... })`: a busy stack of caller-sized shimmer bars so a loading tile keeps its content's height.
+- `StatusTile({ title, icon?, status?, lines, accentColor?, onPress?, accessibilityLabel, accessibilityHint, testID? })`: status tile with hover, press and focus motion (lift, shadow, border tone, <= 200 ms, reduced motion respected); `tileMotionStyle` exported.
+
 ## 1.28.0
 
 - `CheckPipeline` `phoneColumns?`: below the breakpoint the checks become a tile grid of that many columns (default 1 = one row per check). `statusUnderTitleEnabled?` puts each status pill under the check name. `CheckStatus` gains `statusUnderTitleEnabled?`; `pipelineItemVariant(width, breakpoint, phoneColumns)` exported.

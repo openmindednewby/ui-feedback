@@ -14,6 +14,7 @@ export const FEEDBACK_TEST_IDS = {
   emptyListCta: 'empty-list-cta',
   loadingFallback: 'loading-fallback',
   pageSkeleton: 'page-skeleton',
+  skeletonLines: 'skeleton-lines',
   confirmDialog: 'confirm-dialog',
   confirmButton: 'confirm-button',
   cancelConfirmButton: 'cancel-confirm-button',

@@ -58,6 +58,9 @@ export type { LoadingFallbackProps } from './LoadingFallback/LoadingFallback';
 export { PageSkeleton } from './PageSkeleton/PageSkeleton';
 export type { PageSkeletonProps } from './PageSkeleton/PageSkeleton';
 
+export { SkeletonLines } from './SkeletonLines/SkeletonLines';
+export type { SkeletonLine, SkeletonLinesProps } from './SkeletonLines/SkeletonLines';
+
 // Loading / error / loaded, resolved once over ErrorState + PageSkeleton. Error beats
 // loading — see the component docblock; the ordering is pinned by a test.
 export { AsyncSurface } from './AsyncSurface/AsyncSurface';

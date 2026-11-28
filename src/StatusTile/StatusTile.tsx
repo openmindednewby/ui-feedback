@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   line: { fontSize: 13 },
   meta: { fontSize: 12 },
   status: { alignSelf: 'flex-start' },
+  muted: { borderStyle: 'dashed' },
   title: { flexShrink: 1, fontSize: 14, fontWeight: '700' },
   wrap: { borderRadius: RADIUS, borderWidth: 1, gap: 6, minHeight: MIN_HIT, minWidth: 0, padding: PAD },
 });
@@ -30,6 +31,7 @@ export interface StatusTileProps {
   status?: React.ReactNode;
   lines: readonly string[];
   accentColor?: string;
+  muted?: boolean;
   onPress?: () => void;
   accessibilityLabel: string;
   accessibilityHint: string;
@@ -38,27 +40,28 @@ export interface StatusTileProps {
 
 type PressState = Partial<TileInteraction> & { pressed: boolean };
 
-/** A status tile with title, status chip, result line and meta line that lifts on hover and focus. */
-export const StatusTile = ({ title, icon, status, lines, accentColor, onPress, accessibilityLabel, accessibilityHint, testID }: StatusTileProps): React.ReactElement => {
+/** A status tile with title, status chip, result line and meta line that lifts on hover and focus; muted greys it for a check that cannot run. */
+export const StatusTile = ({ title, icon, status, lines, accentColor, muted = false, onPress, accessibilityLabel, accessibilityHint, testID }: StatusTileProps): React.ReactElement => {
   const { theme } = useFeedbackUi();
   const reduced = useReducedMotion();
   const accent = accentColor === undefined ? { borderColor: theme.colors.border } : { borderColor: accentColor, borderTopWidth: ACCENT, paddingTop: PAD - ACCENT + 1 };
   const interactive = onPress !== undefined;
   const styleOf = (state: PressState): StyleProp<ViewStyle> => [
     styles.wrap,
-    { backgroundColor: theme.colors.surface },
+    { backgroundColor: muted ? theme.colors.background : theme.colors.surface },
     accent,
+    muted ? styles.muted : null,
     tileMotionStyle(theme, { interaction: { hovered: state.hovered === true, pressed: state.pressed, focused: state.focused === true }, reduced, interactive, accentColor }),
   ];
   return (
-    <Pressable accessibilityHint={accessibilityHint} accessibilityLabel={accessibilityLabel} accessibilityRole={interactive ? 'button' : undefined} disabled={!interactive} style={styleOf} testID={testID} onPress={onPress}>
+    <Pressable accessibilityHint={accessibilityHint} accessibilityLabel={accessibilityLabel} accessibilityRole={interactive ? 'button' : undefined} disabled={!interactive} style={styleOf} dataSet={{ muted: muted ? 'true' : 'false' }} testID={testID} onPress={onPress}>
       <View style={styles.head}>
         {icon}
-        <Text numberOfLines={1} style={[styles.title, { color: theme.colors.text }]}>{title}</Text>
+        <Text numberOfLines={1} style={[styles.title, { color: muted ? theme.colors.textSecondary : theme.colors.text }]}>{title}</Text>
       </View>
       {status === undefined ? null : <View style={styles.status}>{status}</View>}
       {lines.map((line, index) => (
-        <Text key={`${String(index)}-${line}`} numberOfLines={2} style={[index === 0 ? styles.line : styles.meta, { color: index === 0 ? theme.colors.text : theme.colors.textSecondary }]}>{line}</Text>
+        <Text key={`${String(index)}-${line}`} numberOfLines={2} style={[index === 0 ? styles.line : styles.meta, { color: index === 0 && !muted ? theme.colors.text : theme.colors.textSecondary }]}>{line}</Text>
       ))}
     </Pressable>
   );

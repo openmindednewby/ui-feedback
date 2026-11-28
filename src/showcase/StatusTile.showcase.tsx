@@ -13,13 +13,14 @@ export interface StatusTileShowcaseProps {
   theme: FeedbackTheme;
 }
 
-/** Showcase story: a pressable tile, an accented tile that needs a person, and a static tile. */
+/** Showcase story: a pressable tile, an accented tile that needs a person, a static tile and a muted tile. */
 export const StatusTileShowcase = ({ theme }: StatusTileShowcaseProps): React.ReactElement => (
   <FeedbackUiProvider t={(key) => key} theme={theme}>
     <View style={styles.row}>
       <StatusTile accessibilityHint="showcase.statusTile.hint" accessibilityLabel="showcase.statusTile.pressable" lines={['showcase.statusTile.result', 'showcase.statusTile.meta']} testID="status-tile-pressable" title="showcase.statusTile.pressable" onPress={() => undefined} />
       <StatusTile accentColor={theme.semantic.error['500']} accessibilityHint="showcase.statusTile.hint" accessibilityLabel="showcase.statusTile.accent" lines={['showcase.statusTile.result']} testID="status-tile-accent" title="showcase.statusTile.accent" onPress={() => undefined} />
       <StatusTile accessibilityHint="showcase.statusTile.hint" accessibilityLabel="showcase.statusTile.static" lines={['showcase.statusTile.result']} testID="status-tile-static" title="showcase.statusTile.static" />
+      <StatusTile muted accessibilityHint="showcase.statusTile.hint" accessibilityLabel="showcase.statusTile.muted" lines={['showcase.statusTile.result']} testID="status-tile-muted" title="showcase.statusTile.muted" onPress={() => undefined} />
     </View>
   </FeedbackUiProvider>
 );

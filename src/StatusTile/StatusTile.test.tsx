@@ -11,10 +11,10 @@ const theme: FeedbackTheme = {
   semantic: { error: { '500': '#ae2012' } },
 };
 
-function renderTile(onPress?: () => void): void {
+function renderTile(onPress?: () => void, muted = false): void {
   render(
     <FeedbackUiProvider t={(key) => key} theme={theme}>
-      <StatusTile accessibilityHint="hint" accessibilityLabel="Face match: Failed" lines={['A run failed', '1 run']} testID="tile" title="Face match" onPress={onPress} />
+      <StatusTile accessibilityHint="hint" accessibilityLabel="Face match: Failed" lines={['A run failed', '1 run']} muted={muted} testID="tile" title="Face match" onPress={onPress} />
     </FeedbackUiProvider>,
   );
 }
@@ -35,5 +35,14 @@ describe('StatusTile', () => {
     const role = screen.getByTestId('tile').getAttribute('role');
 
     expect(role).not.toBe('button');
+  });
+
+  it('when muted, marks the tile muted and keeps it pressable', () => {
+    const onPress = jest.fn();
+    renderTile(onPress, true);
+
+    fireEvent.click(screen.getByTestId('tile'));
+
+    expect([screen.getByTestId('tile').getAttribute('data-muted'), onPress.mock.calls.length]).toEqual(['true', 1]);
   });
 });

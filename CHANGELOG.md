@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.30.0
+
+- StatusTile: `muted` greys a tile for a check that cannot run (dashed border, page background, secondary text), still pressable; showcase shows it.
+
 ## 1.29.0
 
 - `SkeletonLines({ lines, ... })`: a busy stack of caller-sized shimmer bars so a loading tile keeps its content's height.

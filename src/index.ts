@@ -118,3 +118,4 @@ export * from './LocalModelGate';
 export * from './CheckStatus';
 export * from './ThresholdMeter';
 export * from './AttentionCard';
+export * from './StatusTile';

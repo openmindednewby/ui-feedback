@@ -54,7 +54,7 @@ export const StatusTile = ({ title, icon, status, lines, accentColor, muted = fa
     tileMotionStyle(theme, { interaction: { hovered: state.hovered === true, pressed: state.pressed, focused: state.focused === true }, reduced, interactive, accentColor }),
   ];
   return (
-    <Pressable accessibilityHint={accessibilityHint} accessibilityLabel={accessibilityLabel} accessibilityRole={interactive ? 'button' : undefined} disabled={!interactive} style={styleOf} dataSet={{ muted: muted ? 'true' : 'false' }} testID={testID} onPress={onPress}>
+    <Pressable accessibilityHint={accessibilityHint} accessibilityLabel={accessibilityLabel} accessibilityRole={interactive ? 'button' : undefined} disabled={!interactive} style={styleOf} testID={testID} onPress={onPress}>
       <View style={styles.head}>
         {icon}
         <Text numberOfLines={1} style={[styles.title, { color: muted ? theme.colors.textSecondary : theme.colors.text }]}>{title}</Text>

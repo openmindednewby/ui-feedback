@@ -37,12 +37,12 @@ describe('StatusTile', () => {
     expect(role).not.toBe('button');
   });
 
-  it('when muted, marks the tile muted and keeps it pressable', () => {
+  it('when muted, draws the title in the secondary text colour and keeps the tile pressable', () => {
     const onPress = jest.fn();
     renderTile(onPress, true);
 
     fireEvent.click(screen.getByTestId('tile'));
 
-    expect([screen.getByTestId('tile').getAttribute('data-muted'), onPress.mock.calls.length]).toEqual(['true', 1]);
+    expect([screen.getByText('Face match').style.color, onPress.mock.calls.length]).toEqual(['rgb(102, 102, 102)', 1]);
   });
 });

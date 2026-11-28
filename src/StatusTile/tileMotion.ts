@@ -30,9 +30,6 @@ export type TileMotionStyle = ViewStyle & {
   transitionDuration?: string;
   transitionProperty?: string;
   transitionTimingFunction?: string;
-  outlineColor?: string;
-  outlineStyle?: string;
-  outlineWidth?: number;
 };
 
 function shadowOf(theme: FeedbackTheme, pressed: boolean): ViewStyle {
